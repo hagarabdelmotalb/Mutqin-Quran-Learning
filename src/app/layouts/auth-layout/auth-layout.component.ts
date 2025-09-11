@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from "../../../../node_modules/@angular/router/router_module.d-Bx9ArA6K";
-import { FooterComponent } from "../footer/footer.component";
+import { RouterOutlet } from "@angular/router";
 import { NavbarComponent } from "../navbar/navbar.component";
+import { FooterComponent } from "../footer/footer.component";
 
 @Component({
   selector: 'app-auth-layout',
-  imports: [RouterOutlet, FooterComponent, NavbarComponent],
+  imports: [RouterOutlet, NavbarComponent, FooterComponent],
   templateUrl: './auth-layout.component.html',
   styleUrl: './auth-layout.component.scss'
 })
