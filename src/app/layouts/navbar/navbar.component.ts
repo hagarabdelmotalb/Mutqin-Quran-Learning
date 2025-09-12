@@ -1,5 +1,5 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, Inject, input, PLATFORM_ID } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 
@@ -11,6 +11,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class NavbarComponent {
     isDarkMode = false;
+    isLogin =input<boolean>(true);
     constructor(@Inject(PLATFORM_ID) private platformId: any) {}
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
@@ -32,4 +33,10 @@ export class NavbarComponent {
       document.documentElement.classList.remove('dark');
     }
   }
+
+  closeDropdown() {
+    const dropdown = document.getElementById("dropdownNavbar");
+    dropdown?.classList.add("hidden");
+  }
+
 }
