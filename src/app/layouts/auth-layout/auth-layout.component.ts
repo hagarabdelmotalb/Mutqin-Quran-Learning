@@ -5,9 +5,10 @@ import { FooterComponent } from "../footer/footer.component";
 
 @Component({
   selector: 'app-auth-layout',
+  standalone: true,
   imports: [RouterOutlet, NavbarComponent, FooterComponent],
   templateUrl: './auth-layout.component.html',
-  styleUrl: './auth-layout.component.scss'
+  styleUrls: ['./auth-layout.component.scss']
 })
 export class AuthLayoutComponent {
 
