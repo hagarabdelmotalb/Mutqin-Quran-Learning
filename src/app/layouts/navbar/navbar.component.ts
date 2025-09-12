@@ -11,7 +11,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class NavbarComponent {
     isDarkMode = false;
-    isLogin =input<boolean>(true);
+    isLogin =input<boolean>(false);
     constructor(@Inject(PLATFORM_ID) private platformId: any) {}
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
