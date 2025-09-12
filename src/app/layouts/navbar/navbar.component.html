@@ -1,1 +1,131 @@
-<p>navbar works!</p>
+
+<nav class="bg-amber-900 border-gray-200 dark:bg-gray-900">
+
+  <div class="max-w-screen-2xl flex flex-wrap items-center justify-between mx-auto px-4 py-2">
+    <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <img src="/images/logo.jpg" class="h-8 rounded-full" alt="Flowbite Logo" />
+        <span class="self-center pr-4 text-2xl font-semibold whitespace-nowrap text-amber-100 dark:text-white">Mutqin</span>
+    </a>
+    <button data-collapse-toggle="navbar-default" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-default" aria-expanded="false">
+        <span class="sr-only">Open main menu</span>
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+        </svg>
+    </button>
+    <div class="hidden w-full flex-grow md:flex md:w-auto" id="navbar-default">
+      <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:bg-amber-900 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md: bg-amber-900 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+        <li>
+          <a routerLink="/home" routerLinkActive="borderbottom-2 border-gray-700"
+           class="block py-2 px-3 bg-amber-900 text-amber-100 rounded-sm  md:p-0  dark:bg-gray-900 dark:text-white" aria-current="page">Home</a>
+        </li>
+
+        <li>
+          <a routerLink="/dashboard" routerLinkActive="bg-gray-700" 
+          class="block py-2 px-3 bg-amber-900 text-amber-100 rounded-sm  md:p-0 dark:text-white   dark:bg-gray-900" aria-current="page">Dashboard</a>
+        </li>
+
+        <li>
+          <a routerLink="/tutors" routerLinkActive="bg-gray-700" 
+          class="block py-2 px-3 bg-amber-900 text-amber-100 rounded-sm  md:p-0 dark:text-white  dark:bg-gray-900" aria-current="page">Tutors</a>
+        </li>
+
+        <li>
+          <a routerLink="/practice" routerLinkActive="bg-gray-700" 
+          class="block py-2 px-3 bg-amber-900 text-amber-100 rounded-sm  md:p-0 dark:text-white  dark:bg-gray-900" aria-current="page">Practice</a>
+        </li>
+
+        <li class="relative">
+          <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
+            class="flex items-center justify-between w-full py-2 px-3 text-amber-100 rounded-sm md:p-0 md:w-auto dark:text-white">
+              My Account
+              <svg class="w-2.5 h-2.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                  viewBox="0 0 10 6">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m1 1 4 4 4-4" />
+              </svg>
+          </button>
+
+         <!-- Dropdown -->
+         <div id="dropdownNavbar"
+    class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600">
+    <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownNavbarLink">
+      <li>
+        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+          Profile
+        </a>
+      </li>
+      <!-- Dark Mode Toggle -->
+<li class="px-4 py-2">
+  <label class="relative inline-flex items-center cursor-pointer">
+    <input type="checkbox" class="sr-only peer" [checked]="isDarkMode" (change)="toggleDarkMode()">
+    <div
+      class="w-11 h-6 bg-gray-200 rounded-full peer peer-checked:bg-amber-600 dark:bg-gray-600">
+    </div>
+    <div
+      class="absolute left-0.5 top-0.5 bg-white w-5 h-5 rounded-full transition-transform peer-checked:translate-x-full">
+    </div>
+    <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+      {{ isDarkMode ? 'Dark' : 'Light' }} Mode
+    </span>
+  </label>
+</li>
+
+    </ul>
+  <div class="py-1">
+      <a href="#"
+        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100  dark:bg-gray-900 dark:text-gray-200 dark:hover:text-white">
+        Logout
+      </a>
+    </div>
+         </div>
+        </li>
+      </ul>
+
+      <ul class="ms-auto font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:bg-amber-900 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md: bg-amber-900 md:dark:bg-gray-900 dark:border-gray-700">
+        <li class="relative group">
+  <button
+    class="flex items-center justify-between w-full py-2 px-3 bg-amber-900 text-amber-100 rounded-sm md:p-0 dark:bg-gray-900 dark:text-white"
+  >
+    Our Courses
+    <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+        d="M19 9l-7 7-7-7" />
+    </svg>
+  </button>
+
+  <!-- Dropdown menu -->
+  <ul
+    class="absolute left-0 mt-2 hidden group-hover:block bg-white dark:bg-gray-800 rounded-md shadow-lg w-48 z-50"
+  >
+    <li>
+      <a href="#" class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-amber-100 dark:hover:bg-gray-700">
+        Tajweed
+      </a>
+    </li>
+    <li>
+      <a href="#" class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-amber-100 dark:hover:bg-gray-700">
+        Tahfiz
+      </a>
+    </li>
+    <li>
+      <a href="#" class="block px-4 py-2 text-gray-700 dark:text-gray-200 hover:bg-amber-100 dark:hover:bg-gray-700">
+        Quran Memorization
+      </a>
+    </li>
+  </ul>
+</li>
+
+
+        <li>
+          <a href="#" class="block py-2 px-3 bg-amber-900 text-amber-100 rounded-sm  md:p-0 dark:bg-gray-900 dark:text-white" aria-current="page">Log in</a>
+        </li>
+
+        <li>
+          <a href="#" class="block py-2 px-3 bg-amber-900 text-amber-100 rounded-sm  md:p-0  dark:bg-gray-900 dark:text-white" aria-current="page">Sign Up</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.5.1/flowbite.min.js"></script>
+</nav>
