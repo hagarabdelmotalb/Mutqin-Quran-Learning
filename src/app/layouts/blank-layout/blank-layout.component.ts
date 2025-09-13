@@ -5,6 +5,7 @@ import { NavbarComponent } from "../navbar/navbar.component";
 
 @Component({
   selector: 'app-blank-layout',
+  standalone: true,
   imports: [RouterOutlet, FooterComponent, NavbarComponent],
   templateUrl: './blank-layout.component.html',
   styleUrls: ['./blank-layout.component.scss']

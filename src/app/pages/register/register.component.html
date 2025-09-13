@@ -1,1 +1,125 @@
-<p>register works!</p>
+<section class="w-11/12 md:w-2/3 mx-auto bg-gray-50 p-6 rounded-xl border shadow-lg dark:bg-gray-900 dark:border-gray-700 my-8">
+    <h1 class="text-3xl text-center font-semibold dark:text-amber-300 mb-6 text-gray-800 dark:text-amber-300">
+        Register Now
+    </h1>
+    <form [formGroup]="register" (ngSubmit)="submitForm()">
+        <div class="mb-6 p-4 bg-white rounded-lg dark:bg-gray-800 shadow-sm">
+            <label class="block mb-3 text-sm font-medium text-gray-900 dark:text-gray-200 text-center">
+                Select Your Role
+            </label>
+            <div class="flex flex-wrap justify-center gap-4 md:gap-6 dark:gap-4">
+                <label class="inline-flex items-center px-4 py-2.5 bg-gray-100 rounded-lg cursor-pointer transition-all hover:bg-amber-50 dark:bg-gray-700 dark:hover:bg-gray-600 
+                            has-[:checked]:bg-amber-100 dark:has-[:checked]:bg-amber-900/30 has-[:checked]:ring-2 has-[:checked]:ring-amber-500">
+                    <input type="radio" name="role" value="tutor" class="form-radio text-amber-600 dark:text-amber-400">
+                    <span class="ml-2 font-medium">Tutor</span>
+                </label>
+                <label class="inline-flex items-center px-4 py-2.5 bg-gray-100 rounded-lg cursor-pointer transition-all hover:bg-amber-50 dark:bg-gray-700 dark:hover:bg-gray-600 
+                            has-[:checked]:bg-amber-100 dark:has-[:checked]:bg-amber-900/30 has-[:checked]:ring-2 has-[:checked]:ring-amber-500">
+                    <input type="radio" name="role" value="student" class="form-radio text-amber-600 dark:text-amber-400">
+                    <span class="ml-2 font-medium">Student</span>
+                </label>
+                <label class="inline-flex items-center px-4 py-2.5 bg-gray-100 rounded-lg cursor-pointer transition-all hover:bg-amber-50 dark:bg-gray-700 dark:hover:bg-gray-600 
+                            has-[:checked]:bg-amber-100 dark:has-[:checked]:bg-amber-900/30 has-[:checked]:ring-2 has-[:checked]:ring-amber-500">
+                    <input type="radio" name="role" value="parent" class="form-radio text-amber-600 dark:text-amber-400">
+                    <span class="ml-2 font-medium">Parent</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="mb-1">
+                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">
+                    Name <span class="text-amber-600">*</span>
+                </label>
+                <input formControlName="name"
+                    type="text" id="name"
+                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 block w-full p-3
+                            dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-100 dark:focus:ring-amber-400 dark:focus:border-amber-400
+                            transition-all duration-200">
+            </div>
+
+            <div class="mb-1">
+                <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">
+                    Username <span class="text-amber-600">*</span>
+                </label>
+                <input formControlName="username"
+                    type="text" id="username"
+                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 block w-full p-3
+                            dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-100 dark:focus:ring-amber-400 dark:focus:border-amber-400
+                            transition-all duration-200">
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div class="mb-1">
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">
+                    Email <span class="text-amber-600">*</span>
+                </label>
+                <input 
+                    formControlName="email"
+                    type="email" id="email"
+                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 block w-full p-3
+                            dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-100 dark:focus:ring-amber-400 dark:focus:border-amber-400
+                            transition-all duration-200">
+            </div>
+
+            <div class="mb-1">
+                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">
+                    Phone
+                </label>
+                <input 
+                    formControlName="phone"
+                    type="tel" id="phone"
+                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 block w-full p-3
+                            dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-100 dark:focus:ring-amber-400 dark:focus:border-amber-400
+                            transition-all duration-200">
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="mb-1">
+                <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">
+                    Password <span class="text-amber-600">*</span>
+                </label>
+                <input 
+                    formControlName="password"
+                    type="password" id="password"
+                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 block w-full p-3
+                            dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-100 dark:focus:ring-amber-400 dark:focus:border-amber-400
+                            transition-all duration-200">
+            </div>
+
+            <div class="mb-1">
+                <label for="password_confirmation" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">
+                    Confirm Password <span class="text-amber-600">*</span>
+                </label>
+                <input 
+                    formControlName="password_confirmation"
+                    type="password" id="password_confirmation"
+                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 block w-full p-3
+                            dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-100 dark:focus:ring-amber-400 dark:focus:border-amber-400
+                            transition-all duration-200">
+            </div>
+        </div>
+    </form>
+
+    <div class="flex items-center mb-4">
+        <input id="terms" type="checkbox" value="" class="w-4 h-4 text-amber-600 bg-gray-100 border-gray-300 rounded focus:ring-amber-500 dark:focus:ring-amber-600 
+        dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
+        <label for="terms" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+            I agree to the <a href="#" class="text-amber-600 hover:underline dark:text-amber-400">terms and conditions</a>
+        </label>
+    </div>
+
+    <div class="flex justify-center mt-6">
+        <button type="submit" class="bg-amber-700 hover:bg-amber-800 text-white font-medium px-12 py-3 my-2 rounded-lg shadow-md transition-all duration-300 
+                      dark:bg-amber-600 dark:hover:bg-amber-700 transform hover:-translate-y-0.5">
+            Sign Up
+        </button>
+    </div>
+    
+    <p class="text-sm text-center text-gray-600 dark:text-gray-400 mt-4">
+        Already have an account? 
+        <a routerLink="/login" class="font-medium text-amber-600 hover:underline dark:text-amber-400">Sign in</a>
+    </p>
+</section>
