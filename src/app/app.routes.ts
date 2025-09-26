@@ -1,12 +1,15 @@
 import { Routes } from '@angular/router';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { BlankLayoutComponent } from './layouts/blank-layout/blank-layout.component';
+import { authGuard } from './core/guards/auth.guard';
+import { logedGuard } from './core/guards/loged/loged.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
 
   {
     path: '',
+    canActivate: [logedGuard],
     component: AuthLayoutComponent,
     children: [
       {
@@ -27,6 +30,7 @@ export const routes: Routes = [
   {
     path: '',
     component: BlankLayoutComponent,
+    canActivate: [authGuard],
     children: [
       {
         path: 'home',
@@ -57,18 +61,6 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/practice/practice.component').then(m => m.PracticeComponent),
         title: 'Practice',
-      },
-      {
-        path: 'tajweed',
-        loadComponent: () =>
-          import('./pages/tajweed/tajweed.component').then(m => m.TajweedComponent),
-        title: 'Tajweed',
-      },
-      {
-        path: 'tahfiz',
-        loadComponent: () =>
-          import('./pages/tahfiz/tahfiz.component').then(m => m.TahfizComponent),
-        title: 'Tahfiz',
       },
       {
         path: 'memorization',

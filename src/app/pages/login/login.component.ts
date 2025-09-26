@@ -38,6 +38,10 @@ export class LoginComponent {
         next: (res) => {
           console.log('Logged in:', res);
           setTimeout(() => {
+              localStorage.setItem('userToken', res.access_token);
+              localStorage.setItem('userData', JSON.stringify(res.user));
+              this.authService.saveUserToken();
+
               this.router.navigate(['/home']);
             }, 1000);
         },
