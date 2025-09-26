@@ -1,6 +1,7 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, Inject, input, PLATFORM_ID } from '@angular/core';
+import { Component, inject, Inject, input, PLATFORM_ID } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { AuthService } from '../../core/services/auth/auth.service';
 
 
 @Component({
@@ -13,6 +14,8 @@ export class NavbarComponent {
     isDarkMode = false;
     isLogin =input<boolean>(false);
     constructor(@Inject(PLATFORM_ID) private platformId: any) {}
+
+  readonly _AuthService =  inject(AuthService);
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
       this.isDarkMode = localStorage.getItem('theme') === 'dark';
@@ -38,5 +41,6 @@ export class NavbarComponent {
     const dropdown = document.getElementById("dropdownNavbar");
     dropdown?.classList.add("hidden");
   }
+
 
 }
