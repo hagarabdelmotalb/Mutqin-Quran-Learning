@@ -1,112 +1,225 @@
-<section class="w-11/12 md:w-2/3 mx-auto bg-gray-50 p-6 rounded-xl border shadow-lg dark:bg-gray-900 dark:border-gray-700 my-8" dir="rtl">
-    <h1 class="text-3xl text-center font-semibold dark:text-amber-300 mb-6 text-gray-800 dark:text-amber-300">
-        سجّل الآن
-    </h1>
+<section
+  class="w-11/12 md:w-2/3 mx-auto bg-gray-50 p-6 rounded-xl border shadow-lg dark:bg-gray-900 dark:border-gray-700 my-8"
+  dir="rtl"
+>
+  <h1
+    class="text-3xl text-center font-semibold mb-6 text-gray-800 dark:text-amber-300"
+  >
+    سجّل الآن
+  </h1>
 
-    <form [formGroup]="registerFrom" (ngSubmit)="submitForm()">
-        <div class="mb-6 p-4 bg-white rounded-lg dark:bg-gray-800 shadow-sm">
-            <label class="block mb-3 text-sm font-medium text-gray-900 dark:text-gray-200 text-center">
-                اختر دورك
-            </label>
+  <form [formGroup]="registerFrom" (ngSubmit)="submitForm()">
+    @if (successMessage) {
+      <div class="mb-4 p-3 rounded bg-green-100 text-green-800 border border-green-300 text-center">
+        {{ successMessage }}
+      </div>
+    }
+    @if (errorMessage) {
+      <div class="mb-4 p-3 rounded bg-red-100 text-red-800 border border-red-300 text-center">
+        {{ errorMessage }}
+      </div>
+    }
 
-            <div class="flex flex-wrap justify-center gap-4 md:gap-6 dark:gap-4">
-                <label class="inline-flex items-center px-4 py-2.5 bg-gray-100 rounded-lg cursor-pointer transition-all hover:bg-amber-50 dark:bg-gray-700 dark:hover:bg-gray-600 
-                            has-[:checked]:bg-amber-100 dark:has-[:checked]:bg-amber-900/30 has-[:checked]:ring-2 has-[:checked]:ring-amber-500">
-                    <input type="radio" name="role" value="tutor" class="form-radio text-amber-600 dark:text-amber-400">
-                    <span class="ml-2 font-medium">مُعلّم</span>
-                </label>
-                <label class="inline-flex items-center px-4 py-2.5 bg-gray-100 rounded-lg cursor-pointer transition-all hover:bg-amber-50 dark:bg-gray-700 dark:hover:bg-gray-600 
-                            has-[:checked]:bg-amber-100 dark:has-[:checked]:bg-amber-900/30 has-[:checked]:ring-2 has-[:checked]:ring-amber-500">
-                    <input type="radio" name="role" value="student" class="form-radio text-amber-600 dark:text-amber-400">
-                    <span class="ml-2 font-medium">طالب</span>
-                </label>
-                <label class="inline-flex items-center px-4 py-2.5 bg-gray-100 rounded-lg cursor-pointer transition-all hover:bg-amber-50 dark:bg-gray-700 dark:hover:bg-gray-600 
-                            has-[:checked]:bg-amber-100 dark:has-[:checked]:bg-amber-900/30 has-[:checked]:ring-2 has-[:checked]:ring-amber-500">
-                    <input type="radio" name="role" value="parent" class="form-radio text-amber-600 dark:text-amber-400">
-                    <span class="ml-2 font-medium">ولي أمر</span>
-                </label>
-            </div>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <div class="mb-1">
-                <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">
-                    الاسم <span class="text-amber-600">*</span>
-                </label>
-                <input formControlName="name" type="text" id="name"
-                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 block w-full p-3
-                    dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-100 dark:focus:ring-amber-400 dark:focus:border-amber-400">
-            </div>
 
-            <div class="mb-1">
-                <label for="username" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">
-                    اسم المستخدم <span class="text-amber-600">*</span>
-                </label>
-                <input formControlName="username" type="text" id="username"
-                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 block w-full p-3
-                    dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-100 dark:focus:ring-amber-400 dark:focus:border-amber-400">
-            </div>
-        </div>
+    <div class="mb-6 p-4 bg-white rounded-lg dark:bg-gray-800 shadow-sm">
+  <label
+    class="block mb-3 text-sm font-medium text-gray-900 dark:text-gray-200 text-center"
+  >
+    اختر دورك
+  </label>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-            <div class="mb-1">
-                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">
-                    البريد الإلكتروني <span class="text-amber-600">*</span>
-                </label>
-                <input formControlName="email" type="email" id="email"
-                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 block w-full p-3
-                    dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-100 dark:focus:ring-amber-400 dark:focus:border-amber-400">
-            </div>
+  <div class="flex flex-wrap justify-center gap-4 md:gap-6 dark:gap-4">
+    <label
+      class="inline-flex items-center px-4 py-2.5 bg-gray-100 rounded-lg cursor-pointer transition-all hover:bg-amber-50 dark:bg-gray-700 dark:hover:bg-gray-600 
+      has-[:checked]:bg-amber-100 dark:has-[:checked]:bg-amber-900/30 has-[:checked]:ring-2 has-[:checked]:ring-amber-500"
+    >
+      <input
+        type="radio"
+        formControlName="role"
+        value="admin"
+        class="form-radio text-amber-600 dark:text-amber-400"
+      />
+      <span class="ml-2 font-medium">مُعلّم</span>
+    </label>
 
-            <div class="mb-1">
-                <label for="phone" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">
-                    رقم الهاتف
-                </label>
-                <input formControlName="phone" type="tel" id="phone"
-                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 block w-full p-3
-                    dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-100 dark:focus:ring-amber-400 dark:focus:border-amber-400">
-            </div>
-        </div>
+    <label
+      class="inline-flex items-center px-4 py-2.5 bg-gray-100 rounded-lg cursor-pointer transition-all hover:bg-amber-50 dark:bg-gray-700 dark:hover:bg-gray-600 
+      has-[:checked]:bg-amber-100 dark:has-[:checked]:bg-amber-900/30 has-[:checked]:ring-2 has-[:checked]:ring-amber-500"
+    >
+      <input
+        type="radio"
+        formControlName="role"
+        value="student"
+        class="form-radio text-amber-600 dark:text-amber-400"
+      />
+      <span class="ml-2 font-medium">طالب</span>
+    </label>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-            <div class="mb-1">
-                <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">
-                    كلمة المرور <span class="text-amber-600">*</span>
-                </label>
-                <input formControlName="password" type="password" id="password"
-                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 block w-full p-3
-                    dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-100 dark:focus:ring-amber-400 dark:focus:border-amber-400">
-            </div>
+    <label
+      class="inline-flex items-center px-4 py-2.5 bg-gray-100 rounded-lg cursor-pointer transition-all hover:bg-amber-50 dark:bg-gray-700 dark:hover:bg-gray-600 
+      has-[:checked]:bg-amber-100 dark:has-[:checked]:bg-amber-900/30 has-[:checked]:ring-2 has-[:checked]:ring-amber-500"
+    >
+      <input
+        type="radio"
+        formControlName="role"
+        value="parent"
+        class="form-radio text-amber-600 dark:text-amber-400"
+      />
+      <span class="ml-2 font-medium">ولي أمر</span>
+    </label>
+  </div>
+</div>
 
-            <div class="mb-1">
-                <label for="password_confirmation" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">
-                    تأكيد كلمة المرور <span class="text-amber-600">*</span>
-                </label>
-                <input formControlName="password_confirmation" type="password" id="password_confirmation"
-                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 block w-full p-3
-                    dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-100 dark:focus:ring-amber-400 dark:focus:border-amber-400">
-            </div>
-        </div>
-    </form>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div class="mb-1">
+        <label for="name" class="block mb-2 text-sm font-medium">الاسم <span class="text-amber-600">*</span></label>
+        <input formControlName="name" type="text" id="name"
+          class="bg-white border border-gray-300 text-sm rounded-lg block w-full p-3 
+          focus:ring-2 focus:ring-amber-500 focus:border-amber-500
+          dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100" />
+
+        @if (registerFrom.get('name')?.invalid && registerFrom.get('name')?.touched) {
+          <div class="text-red-500 text-sm mt-1">
+            @if (registerFrom.get('name')?.errors?.['required']) {
+              <span>الاسم مطلوب</span>
+            }
+            @if (registerFrom.get('name')?.errors?.['minlength']) {
+              <span>الاسم يجب أن يكون 3 أحرف على الأقل</span>
+            }
+            @if (registerFrom.get('name')?.errors?.['maxlength']) {
+              <span>الاسم يجب ألا يتجاوز 30 حرفًا</span>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="mb-1">
+        <label for="username" class="block mb-2 text-sm font-medium">اسم المستخدم <span class="text-amber-600">*</span></label>
+        <input formControlName="username" type="text" id="username"
+          class="bg-white border border-gray-300 text-sm rounded-lg block w-full p-3 
+          focus:ring-2 focus:ring-amber-500 focus:border-amber-500
+          dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100" />
+
+        @if (registerFrom.get('username')?.invalid && registerFrom.get('username')?.touched) {
+          <div class="text-red-500 text-sm mt-1">
+            @if (registerFrom.get('username')?.errors?.['required']) {
+              <span>اسم المستخدم مطلوب</span>
+            }
+            @if (registerFrom.get('username')?.errors?.['minlength']) {
+              <span>اسم المستخدم يجب أن يكون 3 أحرف على الأقل</span>
+            }
+            @if (registerFrom.get('username')?.errors?.['maxlength']) {
+              <span>اسم المستخدم يجب ألا يتجاوز 20 حرفًا</span>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div class="mb-1">
+        <label for="email" class="block mb-2 text-sm font-medium">البريد الإلكتروني <span class="text-amber-600">*</span></label>
+        <input formControlName="email" type="email" id="email"
+          class="bg-white border border-gray-300 text-sm rounded-lg block w-full p-3 
+          focus:ring-2 focus:ring-amber-500 focus:border-amber-500
+          dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100" />
+
+        @if (registerFrom.get('email')?.invalid && registerFrom.get('email')?.touched) {
+          <div class="text-red-500 text-sm mt-1">
+            @if (registerFrom.get('email')?.errors?.['required']) {
+              <span>البريد الإلكتروني مطلوب</span>
+            }
+            @if (registerFrom.get('email')?.errors?.['email']) {
+              <span>صيغة البريد الإلكتروني غير صحيحة</span>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="mb-1">
+        <label for="phone" class="block mb-2 text-sm font-medium">رقم الهاتف</label>
+        <input formControlName="phone" type="tel" id="phone"
+          class="bg-white border border-gray-300 text-sm rounded-lg block w-full p-3 
+          focus:ring-2 focus:ring-amber-500 focus:border-amber-500
+          dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100" />
+
+        @if (registerFrom.get('phone')?.invalid && registerFrom.get('phone')?.touched) {
+          <div class="text-red-500 text-sm mt-1">
+            @if (registerFrom.get('phone')?.errors?.['pattern']) {
+              <span>رقم الهاتف يجب أن يكون بين 8 و 15 رقم</span>
+            }
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      <div class="mb-1">
+        <label for="password" class="block mb-2 text-sm font-medium">كلمة المرور <span class="text-amber-600">*</span></label>
+        <input formControlName="password" type="password" id="password"
+          class="bg-white border border-gray-300 text-sm rounded-lg block w-full p-3 
+          focus:ring-2 focus:ring-amber-500 focus:border-amber-500
+          dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100" />
+
+        @if (registerFrom.get('password')?.invalid && registerFrom.get('password')?.touched) {
+          <div class="text-red-500 text-sm mt-1">
+            @if (registerFrom.get('password')?.errors?.['required']) {
+              <span>كلمة المرور مطلوبة</span>
+            }
+            @if (registerFrom.get('password')?.errors?.['minlength']) {
+              <span>كلمة المرور يجب أن تكون 6 أحرف على الأقل</span>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="mb-1">
+        <label for="password_confirmation" class="block mb-2 text-sm font-medium">تأكيد كلمة المرور <span class="text-amber-600">*</span></label>
+        <input formControlName="password_confirmation" type="password" id="password_confirmation"
+          class="bg-white border border-gray-300 text-sm rounded-lg block w-full p-3 
+          focus:ring-2 focus:ring-amber-500 focus:border-amber-500
+          dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100" />
+
+        @if (registerFrom.get('password_confirmation')?.invalid && registerFrom.get('password_confirmation')?.touched) {
+          <div class="text-red-500 text-sm mt-1">
+            @if (registerFrom.get('password_confirmation')?.errors?.['required']) {
+              <span>تأكيد كلمة المرور مطلوب</span>
+            }
+          </div>
+        }
+
+        @if (registerFrom.get('password_confirmation')?.invalid && registerFrom.get('password_confirmation')?.touched) {
+          <div class="text-red-500 text-sm mt-1">
+            @if (registerFrom.get('password_confirmation')?.errors?.['mismatch']) {
+              <span> كلمة المرور غير متطابقه </span>
+            }
+          </div>
+        }
+      </div>
+    </div>
 
     <div class="flex items-center mb-4">
-        <input id="terms" type="checkbox" value=""
-            class="w-4 h-4 text-amber-600 bg-gray-100 border-gray-300 rounded focus:ring-amber-500 dark:focus:ring-amber-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
-        <label for="terms" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-            أوافق على <a href="#" class="text-amber-600 hover:underline dark:text-amber-400">الشروط والأحكام</a>
-        </label>
+      <input id="terms" type="checkbox"
+        class="w-4 h-4 text-amber-600 bg-gray-100 border-gray-300 rounded focus:ring-amber-500 dark:focus:ring-amber-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
+      <label for="terms" class="ms-2 text-sm font-medium">
+        أوافق على
+        <a href="#" class="text-amber-600 hover:underline dark:text-amber-400">الشروط والأحكام</a>
+      </label>
     </div>
 
     <div class="flex justify-center mt-6">
-        <button type="submit"
-            class="bg-amber-700 hover:bg-amber-800 text-white font-medium px-12 py-3 my-2 rounded-lg shadow-md transition-all duration-300 
-            dark:bg-amber-600 dark:hover:bg-amber-700 transform hover:-translate-y-0.5">
-            إنشاء حساب
-        </button>
+      <button type="submit" [disabled]="isSubmitting || registerFrom.invalid"
+        class="bg-amber-700 hover:bg-amber-800 text-white font-medium px-12 py-3 my-2 rounded-lg shadow-md transition-all duration-300 
+        dark:bg-amber-600 dark:hover:bg-amber-700 transform hover:-translate-y-0.5 disabled:opacity-50">
+        @if (isSubmitting) { جارٍ الإرسال... } @else { إنشاء حساب }
+      </button>
     </div>
+  </form>
 
-    
-    <p class="text-sm text-center text-gray-600 dark:text-gray-400 mt-4">
-        لديك حساب بالفعل؟
-        <a routerLink="/login" class="font-medium text-amber-600 hover:underline dark:text-amber-400">تسجيل الدخول</a>
-    </p>
+  <p class="text-sm text-center text-gray-600 dark:text-gray-400 mt-4">
+    لديك حساب بالفعل؟
+    <a routerLink="/login" class="font-medium text-amber-600 hover:underline dark:text-amber-400">تسجيل الدخول</a>
+  </p>
 </section>
+

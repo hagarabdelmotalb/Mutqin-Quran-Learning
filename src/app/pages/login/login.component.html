@@ -3,30 +3,51 @@
         تسجيل الدخول
     </h1>
 
-    <div class="mb-1">
-        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">
-            البريد الإلكتروني <span class="text-amber-600">*</span>
-        </label>
-        <input type="email" id="email"
-               class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 block w-full p-3
-                      dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-100 dark:focus:ring-amber-400 dark:focus:border-amber-400
-                      transition-all duration-200">
-    </div>
+    <form [formGroup]="loginForm" (ngSubmit)="submit()">
+        @if (errorMessage) {
+            <div class="mb-4 p-3 rounded bg-red-100 text-red-800 border border-red-300 text-center">
+                {{ errorMessage }}
+            </div>
+        }
 
-    <div class="mb-1">
-        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">
-            كلمة المرور <span class="text-amber-600">*</span>
-        </label>
-        <input type="password" id="password"
-               class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 block w-full p-3
-                      dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-100 dark:focus:ring-amber-400 dark:focus:border-amber-400
-                      transition-all duration-200">
-    </div>
+        <div class="mb-1">
+            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">
+                البريد الإلكتروني <span class="text-amber-600">*</span>
+            </label>
+            <input formControlName="email" type="email" id="email"
+                   class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 block w-full p-3
+                          dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-100 dark:focus:ring-amber-400 dark:focus:border-amber-400
+                          transition-all duration-200">
+            @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+                <div class="text-red-500 text-sm mt-1">
+                    @if (loginForm.get('email')?.errors?.['required']) { <span>البريد الإلكتروني مطلوب</span> }
+                    @if (loginForm.get('email')?.errors?.['email']) { <span>صيغة البريد الإلكتروني غير صحيحة</span> }
+                </div>
+            }
+        </div>
 
-    <div class="flex justify-center mt-6">
-        <button class="bg-amber-700 hover:bg-amber-800 text-white font-medium px-12 py-3 my-2 rounded-lg shadow-md transition-all duration-300 
-                      dark:bg-amber-600 dark:hover:bg-amber-700 transform hover:-translate-y-0.5">
-            دخول
-        </button>
-    </div>
+        <div class="mb-1">
+            <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-200">
+                كلمة المرور <span class="text-amber-600">*</span>
+            </label>
+            <input formControlName="password" type="password" id="password"
+                   class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500 block w-full p-3
+                          dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-gray-100 dark:focus:ring-amber-400 dark:focus:border-amber-400
+                          transition-all duration-200">
+            @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+                <div class="text-red-500 text-sm mt-1">
+                    @if (loginForm.get('password')?.errors?.['required']) { <span>كلمة المرور مطلوبة</span> }
+                    @if (loginForm.get('password')?.errors?.['minlength']) { <span>كلمة المرور يجب أن تكون 6 أحرف على الأقل</span> }
+                </div>
+            }
+        </div>
+
+        <div class="flex justify-center mt-6">
+            <button type="submit" [disabled]="isSubmitting || loginForm.invalid"
+                    class="bg-amber-700 hover:bg-amber-800 text-white font-medium px-12 py-3 my-2 rounded-lg shadow-md transition-all duration-300 
+                           dark:bg-amber-600 dark:hover:bg-amber-700 transform hover:-translate-y-0.5 disabled:opacity-50">
+                @if (isSubmitting) { جارٍ الإرسال... } @else { دخول }
+            </button>
+        </div>
+    </form>
 </section>
