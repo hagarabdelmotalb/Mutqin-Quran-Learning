@@ -1,14 +1,21 @@
-import { inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { inject, PLATFORM_ID } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import e from 'express';
 
 export const authGuard: CanActivateFn = (route, state) => {
-  const _Router = inject(Router);
-  if(localStorage.getItem('userToken')){
-    return true;
+  const router = inject(Router);
+  const id = inject(PLATFORM_ID);
+
+  if (isPlatformBrowser(id)) {
+    if(localStorage.getItem('userToken')){
+      return true;
+    }
+    else{
+      router.navigate(['/login']);
+      return false;
+    }
   }
   else{
-    _Router.navigate(['/login']);
     return false;
   }
 };
