@@ -37,14 +37,20 @@ export class AuthService {
   }
 
   saveUserToken(): void {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('userToken');
     if (token) {
       console.log('User Token:', token);
     }
 
-    const userData = localStorage.getItem('userData');
-    if (userData) {
-      console.log('User Data:', JSON.parse(userData));
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+      try {
+        const parsedUserData = JSON.parse(storedUserData) as UserData;
+        this.setUserData(parsedUserData);
+      } catch (error) {
+        console.error('Error parsing stored user data:', error);
+        localStorage.removeItem('userData');
+      }
     }
   }
 
@@ -66,9 +72,27 @@ export class AuthService {
     return localStorage.getItem('userToken');
   }
 
+  private getJwtPayload(): any | null {
+    const token = this.getToken();
+    if (!token) return null;
+    const parts = token.split('.');
+    if (parts.length !== 3) return null;
+    try {
+      return JSON.parse(atob(parts[1]));
+    } catch {
+      return null;
+    }
+  }
+
+  getUserEmailFromToken(): string | null {
+    const payload = this.getJwtPayload();
+    // Spring Security typically uses 'sub' for username/email
+    return payload?.sub || null;
+  }
+
   isLoggedIn(): boolean {
     const token = localStorage.getItem('userToken');
-    return !!token && !!this.userData;
+    return !!token;
   }
 
   private loadUserDataFromStorage(): void {

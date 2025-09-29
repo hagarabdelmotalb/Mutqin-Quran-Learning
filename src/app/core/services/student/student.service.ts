@@ -3,21 +3,8 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { StudentRoleProfile, UpdateStudentProfileRequest, UserSearchResponse } from '../../../models/profile/profile.module';
 
-export interface StudentProfile {
-  id: number;
-  username: string;
-  name: string;
-  email: string;
-  phone?: string;
-  created_at?: string;
-  updated_at?: string;
-}
-
-export interface UpdateProfileRequest {
-  name: string;
-  phone?: string;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -29,7 +16,7 @@ export class StudentService {
     private authService: AuthService
   ) { }
   private _Router = inject(Router);
-  baseUrl: string = 'https://mutqin-laravel.onrender.com';
+  baseUrl: string = 'https://mutqin-springboot-backend-1.onrender.com';
 
   private getHeaders(): HttpHeaders {
     const token = this.authService.getToken();
@@ -39,17 +26,27 @@ export class StudentService {
     });
   }
 
-  viewProfile(username: string): Observable<StudentProfile> {
-    return this.httpClient.get<StudentProfile>(
-      `${this.baseUrl}/api/students/profile/${username}`,
-      { headers: this.getHeaders() }
-    );
+
+
+  viewProfileByIdAndRole(id: string | number, role: string): Observable<StudentRoleProfile> {
+    const paramsUrl = `${this.baseUrl}/api/profile/role?id=${id}&role=${encodeURIComponent(role)}`;
+    return this.httpClient.get<StudentRoleProfile>(paramsUrl, { headers: this.getHeaders() });
   }
 
-  updateProfile(data: UpdateProfileRequest): Observable<{ message: string; profile: StudentProfile }> {
-    return this.httpClient.put<{ message: string; profile: StudentProfile }>(
-      `${this.baseUrl}/api/students/profile`,
-      data,
+  searchUserByEmailOrUsername(emailOrUsername: string): Observable<UserSearchResponse> {
+    const url = `${this.baseUrl}/api/profile/search?emailOrUsername=${encodeURIComponent(emailOrUsername)}`;
+    return this.httpClient.get<UserSearchResponse>(url, { headers: this.getHeaders() });
+  }
+
+  updateStudentProfile(data: UpdateStudentProfileRequest): Observable<StudentRoleProfile> {
+    const body = {
+      ...data,
+      role: 'STUDENT'
+    };
+
+    return this.httpClient.put<StudentRoleProfile>(
+      `${this.baseUrl}/api/profile`,
+      body,
       { headers: this.getHeaders() }
     );
   }

@@ -1,9 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StudentService } from '../../core/services/student/student.service';
 import { AuthService } from '../../core/services/auth/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -20,6 +20,7 @@ export class ProfileComponent implements OnInit {
   isLoading = true;
   errorMessage = '';
   successMessage = '';
+  private route = inject(ActivatedRoute);
 
   constructor(
     private fb: FormBuilder,
@@ -28,16 +29,17 @@ export class ProfileComponent implements OnInit {
     private router: Router
   ) {}
 
-  ngOnInit(): void {
-    this.profileForm = this.fb.group({
-      username: [{ value: '', disabled: true }],
-      name: ['', [Validators.required, Validators.minLength(2)]],
-      email: [{ value: '', disabled: true }, [Validators.required, Validators.email]],
-      phone: ['', [Validators.pattern(/^[0-9+\-\s()]+$/)]]
-    });
+ngOnInit(): void {
+  this.profileForm = this.fb.group({
+    username: ['', [Validators.required, Validators.minLength(3)]],
+    age: ['', [Validators.required]],
+    phone: ['', [Validators.pattern(/^[0-9+\-\s()]+$/)]],
+    email: [{ value: '', disabled: true }]
+  });
 
-    this.loadProfile();
-  }
+  this.loadProfile();
+}
+
 
   loadProfile(): void {
     this.isLoading = true;
@@ -51,83 +53,144 @@ export class ProfileComponent implements OnInit {
       return;
     }
     
-    // Get username from auth service (from localStorage)
-    const username = this.authService.getCurrentUsername();
-    if (!username) {
-      this.errorMessage = 'لم يتم العثور على اسم المستخدم';
+    // Prefer query params id & role if provided, else fallback to current user
+    const idParam = this.route.snapshot.queryParamMap.get('id');
+    const roleParam = this.route.snapshot.queryParamMap.get('role');
+
+    if (idParam && roleParam) {
+      console.log('Loading profile by id/role:', idParam, roleParam);
+      this.studentService.viewProfileByIdAndRole(idParam, roleParam).subscribe({
+        next: (res) => {
+          console.log('Profile loaded successfully (id/role):', res);
+          this.profileData = res;
+          this.profileForm.patchValue({
+          username: res.username,
+          name: res.username,
+          email: res.email,
+          phone: res.phone || '',
+          age: res.age || ''
+        });
+          this.isLoading = false;
+        },
+        error: (err) => {
+          console.error('Error fetching profile by id/role', err);
+          this.errorMessage = 'حدث خطأ في تحميل البيانات. يرجى المحاولة مرة أخرى.';
+          this.isLoading = false;
+        }
+      });
+    } else {
+      // Try to find user id first using emailOrUsername query param
+      const emailOrUsername = this.route.snapshot.queryParamMap.get('emailOrUsername');
+      if (emailOrUsername) {
+        console.log('Searching user by emailOrUsername:', emailOrUsername);
+        this.studentService.searchUserByEmailOrUsername(emailOrUsername).subscribe({
+          next: (user) => {
+            const derivedRole = user.role || 'STUDENT';
+            console.log('User found. Fetching profile by id/role:', user.id, derivedRole);
+            this.studentService.viewProfileByIdAndRole(user.id, derivedRole).subscribe({
+              next: (res) => {
+                this.profileData = res;
+                this.profileForm.patchValue({
+                  username: res.username,
+                  name: res.username,
+                  email: res.email,
+                  phone: res.phone || ''
+                });
+                this.isLoading = false;
+              },
+              error: (err) => {
+                console.error('Error fetching profile by id/role (from search)', err);
+                this.errorMessage = 'حدث خطأ في تحميل البيانات. يرجى المحاولة مرة أخرى.';
+                this.isLoading = false;
+              }
+            });
+          },
+          error: (err) => {
+            console.error('Error searching user by emailOrUsername', err);
+            this.loadByUsernameFallback();
+          }
+        });
+        return;
+      }
+
+      // Fallback: derive identity (prefer token email), then search → load by id/role
+      this.loadByUsernameFallback();
+    }
+  }
+
+  private loadByUsernameFallback(): void {
+    const tokenEmail = this.authService.getUserEmailFromToken();
+    const emailOrUsername = tokenEmail || this.profileForm.get('username')?.value || this.profileForm.get('email')?.value;
+    if (!emailOrUsername) {
+      this.errorMessage = 'لا توجد معلومات كافية لتحديد هوية المستخدم.';
       this.isLoading = false;
       return;
     }
-    
-    console.log('Loading profile for username:', username);
-    this.studentService.viewProfile(username).subscribe({
-      next: (res: any) => {
-        console.log('Profile loaded successfully:', res);
-        this.profileData = res;
-        this.profileForm.patchValue({
-          username: res.username,
-          name: res.name,
-          email: res.email,
-          phone: res.phone || ''
+    console.log('Searching user by identifier (fallback):', emailOrUsername);
+    this.studentService.searchUserByEmailOrUsername(emailOrUsername).subscribe({
+      next: (user) => {
+        const derivedRole = user.role || 'STUDENT';
+        this.studentService.viewProfileByIdAndRole(user.id, derivedRole).subscribe({
+          next: (res) => {
+            this.profileData = res;
+            this.profileForm.patchValue({
+              username: res.username,
+              age: res.age,
+              phone: res.phone || '',
+              email: res.email
+            });
+            this.isLoading = false;
+          },
+          error: (err) => {
+            console.error('Error fetching profile by id/role (fallback)', err);
+            this.errorMessage = 'حدث خطأ في تحميل البيانات. يرجى المحاولة مرة أخرى.';
+            this.isLoading = false;
+          }
         });
-        this.isLoading = false;
       },
       error: (err) => {
-        console.error('Error fetching profile', err);
-        this.errorMessage = 'حدث خطأ في تحميل البيانات. يرجى المحاولة مرة أخرى.';
+        console.error('Error searching user (fallback)', err);
+        this.errorMessage = 'تعذر العثور على المستخدم.';
         this.isLoading = false;
       }
     });
   }
 
-  onSubmit(): void {
-    if (this.profileForm.invalid) {
-      this.markFormGroupTouched();
-      return;
+  
+onSubmit(): void {
+  this.markFormGroupTouched();
+  this.errorMessage = '';
+  this.successMessage = '';
+
+  if (this.profileForm.invalid) {
+    this.errorMessage = 'يرجى تصحيح الأخطاء في النموذج.';
+    return;
+  }
+
+  // نجهز البيانات اللي هنبعتها
+  const updatedData = {
+    username: this.profileForm.value.username,
+    age: this.profileForm.get('age')?.value,
+    phone: this.profileForm.get('phone')?.value
+  };
+
+  this.isUpdating = true;
+
+  this.studentService.updateStudentProfile(updatedData).subscribe({
+    next: (res) => {
+      console.log('Profile updated successfully:', res);
+      this.successMessage = 'تم تحديث الملف الشخصي بنجاح';
+      this.profileData = res;
+      this.isUpdating = false;
+    },
+    error: (err) => {
+      console.error('Error updating profile:', err);
+      this.errorMessage = 'حدث خطأ أثناء تحديث البيانات. حاول مرة أخرى لاحقًا.';
+      this.isUpdating = false;
     }
+  });
+}
 
-    this.isUpdating = true;
-    this.errorMessage = '';
-    this.successMessage = '';
-
-    const formData = this.profileForm.value;
-    const updateData = {
-      name: formData.name,
-      phone: formData.phone
-    };
-
-    this.studentService.updateProfile(updateData).subscribe({
-      next: (res) => {
-        console.log('Profile updated successfully', res);
-        this.profileData = res.profile || res;
-        
-        // Update the auth service with new user data
-        if (this.profileData) {
-          this.authService.setUserData({
-            id: this.profileData.id,
-            username: this.profileData.username,
-            name: this.profileData.name,
-            email: this.profileData.email,
-            phone: this.profileData.phone,
-            age: this.profileData.age
-          });
-        }
-        
-        this.successMessage = res.message || 'تم تحديث البيانات بنجاح';
-        this.isUpdating = false;
-        
-        // Clear success message after 3 seconds
-        setTimeout(() => {
-          this.successMessage = '';
-        }, 3000);
-      },
-      error: (err) => {
-        console.error('Error updating profile', err);
-        this.errorMessage = err.error?.message || 'حدث خطأ أثناء التحديث. يرجى المحاولة مرة أخرى.';
-        this.isUpdating = false;
-      }
-    });
-  }
 
   private markFormGroupTouched(): void {
     Object.keys(this.profileForm.controls).forEach(key => {

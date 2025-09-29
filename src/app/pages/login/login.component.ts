@@ -38,13 +38,12 @@ export class LoginComponent {
             console.log('Logged in:', res);
 
             if (res && res.token) {
-            localStorage.setItem('token', res.token);
-            this.authService.saveUserToken();
-
-            this.router.navigate(['/home']);
-          } else {
-            this.errorMessage = 'لم يتم استلام التوكن من الخادم';
-          }
+              localStorage.setItem('userToken', res.token);
+              this.authService.saveUserToken();
+              this.router.navigate(['/home']);
+            } else {
+              this.errorMessage = 'لم يتم استلام التوكن من الخادم';
+            }
         },
         error: (err) => {
           console.error('Login error:', err);
