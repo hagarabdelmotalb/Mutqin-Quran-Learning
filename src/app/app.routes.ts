@@ -39,6 +39,12 @@ export const routes: Routes = [
         title: 'Home',
       },
       {
+        path: 'booksession',
+        loadComponent: () =>
+          import('./pages/booksession/booksession.component').then(m => m.BooksessionComponent),
+        title: 'Booksession',
+      },
+      {
         path: 'dashboard',
         loadComponent: () =>
           import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent),
@@ -61,12 +67,6 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/practice/practice.component').then(m => m.PracticeComponent),
         title: 'Practice',
-      },
-      {
-        path: 'memorization',
-        loadComponent: () =>
-          import('./pages/memorization/memorization.component').then(m => m.MemorizationComponent),
-        title: 'Memorization',
       },
       {
         path: '**',

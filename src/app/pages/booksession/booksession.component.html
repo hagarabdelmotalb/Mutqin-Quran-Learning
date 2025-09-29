@@ -1,0 +1,92 @@
+<section class="min-h-screen flex items-center justify-center bg-amber-50 py-10">
+  <div class="bg-white rounded-2xl shadow-xl p-8 max-w-2xl w-full space-y-8">
+
+    <!-- عنوان الصفحة -->
+    <div class="text-center space-y-2">
+      <h2 class="text-3xl font-bold text-amber-800">حجز جلسة جديدة</h2>
+      <p class="text-gray-600 text-sm">
+        قم بحجز جلستك بسهولة مع أفضل المعلمين في الوقت الذي يناسبك
+      </p>
+    </div>
+
+    <!-- نموذج الحجز -->
+    <form [formGroup]="bookSessionForm" (ngSubmit)="onSubmit()" class="space-y-5">
+      <div *ngIf="studentId" class="text-sm text-gray-600 bg-amber-50 p-2 rounded-lg border border-amber-100">
+        <strong>Student ID:</strong> {{ studentId }}
+      </div>
+
+      <div>
+        <label class="block text-sm font-medium text-gray-700 mb-1">رقم المعلم (Tutor ID)</label>
+        <input
+          type="number"
+          formControlName="tutorId"
+          placeholder="أدخل رقم المعلم"
+          class="w-full border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-amber-600 focus:border-amber-600"
+        />
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="bookSessionForm.invalid"
+        class="w-full bg-amber-800 text-white py-2 rounded-lg font-semibold hover:bg-amber-900 transition"
+      >
+        تأكيد الحجز
+      </button>
+    </form>
+
+    <!-- رسالة الرد -->
+    <div *ngIf="responseMessage" class="mt-4 text-center space-y-2">
+      <p class="text-gray-800 font-medium">{{ responseMessage }}</p>
+      <a *ngIf="calendlyUrl" [href]="calendlyUrl" target="_blank" class="text-amber-800 underline mt-2 inline-block">
+        الذهاب إلى رابط الجلسة
+      </a>
+    </div>
+
+    <!-- ✨ المميزات -->
+    <div class="border-t border-gray-200 pt-6 space-y-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center bg-amber-100">
+          <i class="fa-regular fa-calendar text-amber-700"></i>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900">اختيار التوقيت المناسب</h3>
+          <p class="text-sm text-gray-600">اختر الوقت الذي يناسبك من الأوقات المتاحة</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center bg-amber-100">
+          <i class="fa-regular fa-clock text-amber-700"></i>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900">جلسات مرنة</h3>
+          <p class="text-sm text-gray-600">مدة الجلسة قابلة للتخصيص حسب احتياجاتك</p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-full flex items-center justify-center bg-amber-100">
+          <i class="fa-regular fa-user text-amber-700"></i>
+        </div>
+        <div>
+          <h3 class="font-semibold text-gray-900">معلمون مؤهلون</h3>
+          <p class="text-sm text-gray-600">جلسات مع أفضل المعلمين المتخصصين</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 📌 تعليمات الحجز -->
+    <div class="p-4 rounded-lg bg-amber-50 border border-amber-100">
+      <h4 class="font-semibold mb-2 text-gray-900">كيفية الحجز:</h4>
+      <ol class="list-decimal list-inside text-sm text-gray-700 space-y-1">
+        <li>اضغط على زر "تأكيد الحجز"</li>
+        <li>سيتم توجيهك إلى صفحة Calendly</li>
+        <li>اختر التوقيت المناسب لك</li>
+        <li>أكمل معلومات الحجز</li>
+        <li>ستصلك رسالة تأكيد عبر البريد الإلكتروني</li>
+      </ol>
+    </div>
+
+  </div>
+</section>
+
