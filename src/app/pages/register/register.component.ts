@@ -23,6 +23,7 @@ export class RegisterComponent {
     username: new FormControl(null,[Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
     email: new FormControl(null , [Validators.required ,Validators.email]),
     phone: new FormControl(null,[Validators.pattern(/^\+?[0-9]{8,15}$/)]),
+    age:new FormControl(null,[Validators.required]),
     password: new FormControl(null, [Validators.required,Validators.minLength(6)]),
     password_confirmation: new FormControl(null , [Validators.required]),
     role: new FormControl(null, [Validators.required]),
@@ -67,7 +68,7 @@ export class RegisterComponent {
       .subscribe({
         next: (res) => {
           console.log('Success:', res);
-          if(res.message === 'User registered successfully.'){
+          if(res.message === 'User registered successfully'){
             this.successMessage = 'تم إنشاء الحساب بنجاح';
             setTimeout(() => {
               this.router.navigate(['/login']);
@@ -76,7 +77,7 @@ export class RegisterComponent {
           
         },
         error: (err) => {
-          this.errorMessage = err?.error?.message || 'حدث خطأ أثناء إنشاء الحساب';
+          this.errorMessage = err?.error?.error || err?.error?.message || 'حدث خطأ أثناء إنشاء الحساب';
           console.error('Error:', err);
         }
       });

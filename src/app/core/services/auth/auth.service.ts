@@ -1,41 +1,94 @@
 import { HttpClient} from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
+
+export interface UserData {
+  id: number;
+  username: string;
+  name: string;
+  email: string;
+  phone?: string;
+  age:number;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  userData:any = null;
+  userData: UserData | null = null;
+  private userDataSubject = new BehaviorSubject<UserData | null>(null);
+  public userData$ = this.userDataSubject.asObservable();
 
-  constructor(private httpClient:HttpClient) { }
-  private _Router = inject(Router);
-  baseUrl:string='https://mutqin-laravel.onrender.com';
-
-  sendRegisterForm(data:object):Observable<any>{
-    return this.httpClient.post(`${this.baseUrl}/api/auth/signup`, data)
+  constructor(private httpClient: HttpClient) { 
+    this.loadUserDataFromStorage();
   }
-  sendLoginForm(data:object):Observable<any>{
-    return this.httpClient.post(`${this.baseUrl}/api/auth/login`, data)
+  
+  private _Router = inject(Router);
+  baseUrl: string = 'https://mutqin-springboot-backend-1.onrender.com';
+
+  sendRegisterForm(data: object): Observable<any> {
+    return this.httpClient.post(`${this.baseUrl}/api/auth/signup`, data);
+  }
+  
+  sendLoginForm(data: object): Observable<any> {
+    return this.httpClient.post(`${this.baseUrl}/api/auth/login`, data);
   }
 
   saveUserToken(): void {
-  const token = localStorage.getItem('userToken');
-  if (token) {
-    console.log('User Token:', token);
+    const token = localStorage.getItem('token');
+    if (token) {
+      console.log('User Token:', token);
+    }
+
+    const userData = localStorage.getItem('userData');
+    if (userData) {
+      console.log('User Data:', JSON.parse(userData));
+    }
   }
 
-  const userData = localStorage.getItem('userData');
-  if (userData) {
-    console.log('User Data:', JSON.parse(userData));
-   }
+  setUserData(userData: UserData): void {
+    this.userData = userData;
+    this.userDataSubject.next(userData);
+    localStorage.setItem('userData', JSON.stringify(userData));
   }
 
-  logOut():void{
+  getCurrentUser(): UserData | null {
+    return this.userData;
+  }
+
+  getCurrentUsername(): string | null {
+    return this.userData?.username || null;
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('userToken');
+  }
+
+  isLoggedIn(): boolean {
+    const token = localStorage.getItem('userToken');
+    return !!token && !!this.userData;
+  }
+
+  private loadUserDataFromStorage(): void {
+    const storedUserData = localStorage.getItem('userData');
+    if (storedUserData) {
+      try {
+        this.userData = JSON.parse(storedUserData);
+        this.userDataSubject.next(this.userData);
+      } catch (error) {
+        console.error('Error parsing stored user data:', error);
+        localStorage.removeItem('userData');
+      }
+    }
+  }
+
+  logOut(): void {
     localStorage.removeItem('userToken');
+    localStorage.removeItem('userData');
     this.userData = null;
+    this.userDataSubject.next(null);
     this._Router.navigate(['/login']);
   }
 }

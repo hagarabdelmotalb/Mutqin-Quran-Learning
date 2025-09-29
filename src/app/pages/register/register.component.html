@@ -36,7 +36,7 @@
       <input
         type="radio"
         formControlName="role"
-        value="admin"
+        value="ADMIN"
         class="form-radio text-amber-600 dark:text-amber-400"
       />
       <span class="ml-2 font-medium">مُعلّم</span>
@@ -49,7 +49,7 @@
       <input
         type="radio"
         formControlName="role"
-        value="student"
+        value="STUDENT"
         class="form-radio text-amber-600 dark:text-amber-400"
       />
       <span class="ml-2 font-medium">طالب</span>
@@ -62,7 +62,7 @@
       <input
         type="radio"
         formControlName="role"
-        value="parent"
+        value="PARENT"
         class="form-radio text-amber-600 dark:text-amber-400"
       />
       <span class="ml-2 font-medium">ولي أمر</span>
@@ -72,6 +72,7 @@
 
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <!-- name -->
       <div class="mb-1">
         <label for="name" class="block mb-2 text-sm font-medium">الاسم <span class="text-amber-600">*</span></label>
         <input formControlName="name" type="text" id="name"
@@ -94,6 +95,7 @@
         }
       </div>
 
+      <!-- username -->
       <div class="mb-1">
         <label for="username" class="block mb-2 text-sm font-medium">اسم المستخدم <span class="text-amber-600">*</span></label>
         <input formControlName="username" type="text" id="username"
@@ -118,6 +120,7 @@
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <!-- email -->
       <div class="mb-1">
         <label for="email" class="block mb-2 text-sm font-medium">البريد الإلكتروني <span class="text-amber-600">*</span></label>
         <input formControlName="email" type="email" id="email"
@@ -137,6 +140,7 @@
         }
       </div>
 
+      <!-- phone -->
       <div class="mb-1">
         <label for="phone" class="block mb-2 text-sm font-medium">رقم الهاتف</label>
         <input formControlName="phone" type="tel" id="phone"
@@ -152,9 +156,11 @@
           </div>
         }
       </div>
+
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      <!-- password -->
       <div class="mb-1">
         <label for="password" class="block mb-2 text-sm font-medium">كلمة المرور <span class="text-amber-600">*</span></label>
         <input formControlName="password" type="password" id="password"
@@ -174,6 +180,7 @@
         }
       </div>
 
+      <!-- confirm password -->
       <div class="mb-1">
         <label for="password_confirmation" class="block mb-2 text-sm font-medium">تأكيد كلمة المرور <span class="text-amber-600">*</span></label>
         <input formControlName="password_confirmation" type="password" id="password_confirmation"
@@ -199,6 +206,25 @@
       </div>
     </div>
 
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+      <!-- age -->
+      <div class="mb-1">
+        <label for="age" class="block mb-2 text-sm font-medium"> العمر <span class="text-amber-600">*</span></label>
+        <input formControlName="age" type="number" id="age"
+          class="bg-white border border-gray-300 text-sm rounded-lg block w-full p-3 
+          focus:ring-2 focus:ring-amber-500 focus:border-amber-500
+          dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100" />
+
+        @if (registerFrom.get('age')?.invalid && registerFrom.get('age')?.touched) {
+          <div class="text-red-500 text-sm mt-1">
+            @if (registerFrom.get('age')?.errors?.['required']) {
+              <span> العمر مطلوب </span>
+            }
+          </div>
+        }
+      </div>
+
+    </div>
     <div class="flex items-center mb-4">
       <input id="terms" type="checkbox"
         class="w-4 h-4 text-amber-600 bg-gray-100 border-gray-300 rounded focus:ring-amber-500 dark:focus:ring-amber-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />

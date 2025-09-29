@@ -2,8 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/services/auth/auth.service';
-import { finalize } from 'rxjs';
-
+import { finalize } from 'rxjs';  
 @Component({
   selector: 'app-login',
   imports: [ReactiveFormsModule, RouterLink],
@@ -36,18 +35,22 @@ export class LoginComponent {
       .pipe(finalize(() => (this.isSubmitting = false)))
       .subscribe({
         next: (res) => {
-          console.log('Logged in:', res);
-          setTimeout(() => {
-              localStorage.setItem('userToken', res.access_token);
-              localStorage.setItem('userData', JSON.stringify(res.user));
-              this.authService.saveUserToken();
+            console.log('Logged in:', res);
 
-              this.router.navigate(['/home']);
-            }, 1000);
+            if (res && res.token) {
+            localStorage.setItem('token', res.token);
+            this.authService.saveUserToken();
+
+            this.router.navigate(['/home']);
+          } else {
+            this.errorMessage = 'لم يتم استلام التوكن من الخادم';
+          }
         },
         error: (err) => {
-          this.errorMessage = err?.error?.message || 'حدث خطأ أثناء محاولة تسجيل الدخول';
           console.error('Login error:', err);
+          this.errorMessage = err?.error?.error 
+          || err?.error?.messages 
+          || 'حدث خطأ أثناء محاولة تسجيل الدخول';
         }
       });
   }

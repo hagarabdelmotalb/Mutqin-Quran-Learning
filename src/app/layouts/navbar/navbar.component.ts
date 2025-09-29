@@ -41,6 +41,4 @@ export class NavbarComponent {
     const dropdown = document.getElementById("dropdownNavbar");
     dropdown?.classList.add("hidden");
   }
-
-
 }
