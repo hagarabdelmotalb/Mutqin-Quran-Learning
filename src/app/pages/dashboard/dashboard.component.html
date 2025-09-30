@@ -29,77 +29,35 @@
 
                     <!-- Sessions Cards -->
                     <div class="flex flex-col items-center gap-6">
-                        <div class="w-full max-w-2xl session-card text-white p-5 rounded-2xl shadow-lg pulse">
-                            <div class="flex justify-between items-center mb-3">
-                                <div>
-                                    <span class="text-lg font-semibold">جلسة : سورة قاف</span>
-                                    <div class="flex items-center mt-1">
-                                        <i class="fas fa-user ml-2 text-amber-200"></i>
-                                        <span class="text-amber-200">الشيخ : أحمد عبد السميع</span>
-                                    </div>
-                                </div>
-                                <div class="text-right">
-                                    <p class="text-xl font-bold">الخميس: 8:00</p>
-                                    <span class="badge badge-success mt-1">متاح الآن</span>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center mt-4">
-                                <div class="flex items-center">
-                                    <i class="fas fa-users text-amber-200 ml-2"></i>
-                                    <span>15 طالب مسجل</span>
-                                </div>
-                                <button class="py-2 px-6 bg-green-500 hover:bg-green-600 rounded-xl transition-all duration-300 shadow-md flex items-center">
-                                    <i class="fas fa-door-open ml-2"></i> دخول الجلسة
-                                </button>
-                            </div>
-                        </div>
+                        <div *ngIf="isLoading" class="text-center text-gray-600 dark:text-gray-300">جارِ التحميل...</div>
+                        <div *ngIf="!isLoading && errorMessage" class="text-center text-red-600">{{ errorMessage }}</div>
+                        <div *ngIf="!isLoading && !errorMessage && sessions.length === 0" class="text-center text-gray-600 dark:text-gray-300">لا توجد جلسات</div>
 
-                        <div class="w-full max-w-2xl session-card text-white p-5 rounded-2xl shadow-lg">
+                        <div *ngFor="let s of sessions" class="w-full max-w-2xl session-card text-white p-5 rounded-2xl shadow-lg">
                             <div class="flex justify-between items-center mb-3">
                                 <div>
-                                    <span class="text-lg font-semibold">جلسة : سورة الملك</span>
+                                    <span class="text-lg font-semibold">جلسة رقم: {{ s.sessionId }}</span>
                                     <div class="flex items-center mt-1">
-                                        <i class="fas fa-user ml-2 text-amber-200"></i>
-                                        <span class="text-amber-200">الشيخ : محمد عبد الله</span>
+                                        <i class="fas fa-user ml-2 text-amber-2 00"></i>
+                                        <span class="text-amber-200">الشيخ: {{ s.sheikhUsername }}</span>
                                     </div>
                                 </div>
                                 <div class="text-right">
-                                    <p class="text-xl font-bold">الجمعة: 9:30</p>
-                                    <span class="badge badge-warning mt-1">تبدأ قريبًا</span>
+                                    <p class="text-xl font-bold">{{ s.date | date:'medium' }}</p>
+                                    <span class="badge" [ngClass]="{
+                                        'badge-success': s.status === 'Live' || s.status === 'Available',
+                                        'badge-warning': s.status === 'Upcomming',
+                                        'badge-danger': s.status === 'Cancelled'
+                                    }">{{ s.status }}</span>
                                 </div>
                             </div>
                             <div class="flex justify-between items-center mt-4">
                                 <div class="flex items-center">
                                     <i class="fas fa-users text-amber-200 ml-2"></i>
-                                    <span>12 طالب مسجل</span>
+                                    <span>الطالب: {{ s.studentUsername }}</span>
                                 </div>
                                 <button class="py-2 px-6 bg-green-500 hover:bg-green-600 rounded-xl transition-all duration-300 shadow-md flex items-center">
-                                    <i class="fas fa-door-open ml-2"></i> دخول الجلسة
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="w-full max-w-2xl session-card text-white p-5 rounded-2xl shadow-lg">
-                            <div class="flex justify-between items-center mb-3">
-                                <div>
-                                    <span class="text-lg font-semibold">جلسة : سورة النور</span>
-                                    <div class="flex items-center mt-1">
-                                        <i class="fas fa-user ml-2 text-amber-200"></i>
-                                        <span class="text-amber-200">الشيخ : خالد محمود</span>
-                                    </div>
-                                </div>
-                                <div class="text-right">
-                                    <p class="text-xl font-bold">السبت: 10:00</p>
-                                    <span class="badge badge-warning mt-1">غدًا</span>
-                                </div>
-                            </div>
-                            <div class="flex justify-between items-center mt-4">
-                                <div class="flex items-center">
-                                    <i class="fas fa-users text-amber-200 ml-2"></i>
-                                    <span>8 طالب مسجل</span>
-                                </div>
-                                <button class="py-2 px-6 bg-green-500 hover:bg-green-600 rounded-xl transition-all duration-300 shadow-md flex items-center">
-                                    <i class="fas fa-door-open ml-2"></i> دخول الجلسة
+                                    <i class="fas fa-door-open ml-2"></i> تفاصيل
                                 </button>
                             </div>
                         </div>

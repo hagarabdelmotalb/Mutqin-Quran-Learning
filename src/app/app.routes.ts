@@ -69,6 +69,12 @@ export const routes: Routes = [
         title: 'Practice',
       },
       {
+        path: 'notifications',
+        loadComponent: () =>
+          import('./pages/notifications/notifications.component').then(m => m.NotificationsComponent),
+        title: 'Notifications',
+      },
+      {
         path: '**',
         loadComponent: () =>
           import('./pages/notfound/notfound.component').then(m => m.NotfoundComponent),

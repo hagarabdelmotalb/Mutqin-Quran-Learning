@@ -1,7 +1,7 @@
 <section class="min-h-screen flex items-center justify-center bg-amber-50 py-10">
   <div class="bg-white rounded-2xl shadow-xl p-8 max-w-2xl w-full space-y-8">
 
-    <!-- عنوان الصفحة -->
+    <!--  title -->
     <div class="text-center space-y-2">
       <h2 class="text-3xl font-bold text-amber-800">حجز جلسة جديدة</h2>
       <p class="text-gray-600 text-sm">
@@ -9,7 +9,7 @@
       </p>
     </div>
 
-    <!-- نموذج الحجز -->
+    <!--  booking form -->
     <form [formGroup]="bookSessionForm" (ngSubmit)="onSubmit()" class="space-y-5">
       <div *ngIf="studentId" class="text-sm text-gray-600 bg-amber-50 p-2 rounded-lg border border-amber-100">
         <strong>Student ID:</strong> {{ studentId }}
@@ -34,7 +34,7 @@
       </button>
     </form>
 
-    <!-- رسالة الرد -->
+    <!-- succes message -->
     <div *ngIf="responseMessage" class="mt-4 text-center space-y-2">
       <p class="text-gray-800 font-medium">{{ responseMessage }}</p>
       <a *ngIf="calendlyUrl" [href]="calendlyUrl" target="_blank" class="text-amber-800 underline mt-2 inline-block">
@@ -42,7 +42,7 @@
       </a>
     </div>
 
-    <!-- ✨ المميزات -->
+    <!-- featurs -->
     <div class="border-t border-gray-200 pt-6 space-y-4">
       <div class="flex items-center gap-3">
         <div class="w-10 h-10 rounded-full flex items-center justify-center bg-amber-100">
@@ -75,7 +75,7 @@
       </div>
     </div>
 
-    <!-- 📌 تعليمات الحجز -->
+    <!-- instractions -->
     <div class="p-4 rounded-lg bg-amber-50 border border-amber-100">
       <h4 class="font-semibold mb-2 text-gray-900">كيفية الحجز:</h4>
       <ol class="list-decimal list-inside text-sm text-gray-700 space-y-1">

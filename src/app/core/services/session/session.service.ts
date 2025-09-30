@@ -15,6 +15,15 @@ export interface BookSessionResponse {
   message: string;
 }
 
+export interface StudentSessionDto {
+  sessionId: string;
+  status: string;
+  date: string; // ISO string
+  sheikhId: string;
+  studentUsername: string;
+  sheikhUsername: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -41,6 +50,11 @@ export class SessionService  {
       `${this.baseUrl}/students/sessions/book`,
       data
     );
+  }
+
+  getSessionsByUsername(username: string): Observable<StudentSessionDto[]> {
+    const url = `${this.baseUrl}/students/student/${encodeURIComponent(username)}`;
+    return this.httpClient.get<StudentSessionDto[]>(url);
   }
 
 }

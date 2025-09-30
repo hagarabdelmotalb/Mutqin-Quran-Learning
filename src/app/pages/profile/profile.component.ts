@@ -40,7 +40,9 @@ ngOnInit(): void {
   this.loadProfile();
 }
 
-
+reloadProfile(): void {
+  this.loadProfile();
+}
   loadProfile(): void {
     this.isLoading = true;
     this.errorMessage = '';
@@ -117,6 +119,25 @@ ngOnInit(): void {
       this.loadByUsernameFallback();
     }
   }
+
+getRoleName(role: string | null | undefined): string {
+  switch (role) {
+    case 'STUDENT': return 'طالب';
+    case 'TUTOR': return 'معلم';
+    case 'PARENT': return 'ولي أمر';
+    default: return role || 'غير محدد';
+  }
+}
+
+getMemorizationLevel(level: string | null | undefined): string {
+  switch (level) {
+    case 'BEGINNER': return 'مبتدئ';
+    case 'INTERMEDIATE': return 'متوسط';
+    case 'ADVANCED': return 'متقدم';
+    case 'HAFIZ': return 'حافظ';
+    default: return 'غير محدد';
+  }
+}
 
   private loadByUsernameFallback(): void {
     const tokenEmail = this.authService.getUserEmailFromToken();
