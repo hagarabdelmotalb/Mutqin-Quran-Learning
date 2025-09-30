@@ -1,6 +1,6 @@
+import { NotificationsService } from './../../core/services/notifications/notifications.service';
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NotificationsService } from '../../core/services/notifications.service';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { StudentService } from '../../core/services/student/student.service';
 import { NotificationData } from '../../models/progress/progress.module';
