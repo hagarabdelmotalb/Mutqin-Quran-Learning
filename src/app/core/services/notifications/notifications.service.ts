@@ -35,6 +35,6 @@ export class NotificationsService {
 
   markNotificationAsRead(notificationId: string): Observable<any> {
     const url = `${this.baseUrl}/api/notifications/${notificationId}/read`;
-    return this.httpClient.post(url, {}, { headers: this.getHeaders() });
+    return this.httpClient.put(url, {}, { headers: this.getHeaders() });
   }
 }

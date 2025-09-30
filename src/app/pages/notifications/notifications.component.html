@@ -1,42 +1,48 @@
-<div class="notifications-container">
-  <div class="header">
-    <h2 class="title">Notifications</h2>
-    <div class="header-actions">
+<section class="dark:bg-gray-800">
+  <div class="notifications-container bg-white dark:bg-gray-800  transition-colors duration-300 min-h-screen">
+  <!-- Header -->
+  <div class="header border-b-2 border-amber-400 dark:border-amber-600 flex justify-between items-center mb-8 pb-4">
+    <h2 class="title text-2xl font-bold text-amber-800 dark:text-amber-400 m-0">Notifications</h2>
+
+    <div class="header-actions flex gap-4 items-center">
+      <!-- Filter Button -->
       <button 
-        class="filter-btn" 
+        class="filter-btn flex items-center gap-2 px-4 py-2 rounded-lg font-semibold border border-amber-200 bg-amber-50 hover:bg-amber-100 dark:bg-gray-800 dark:border-gray-600 dark:text-gray-200 dark:hover:bg-gray-700 transition"
         (click)="toggleUnreadOnly()"
         [class.active]="showUnreadOnly"
         title="Toggle unread only">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M9 12l2 2 4-4"/>
-          <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/>
+          <path d="M9 12l2 2 4-4"></path>
+          <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"></path>
         </svg>
         {{ showUnreadOnly ? 'Show All' : 'Unread Only' }}
-        <span *ngIf="unreadNotifications.length > 0" class="unread-badge">{{ unreadNotifications.length }}</span>
+        <span *ngIf="unreadNotifications.length > 0" class="unread-badge bg-amber-700 text-white rounded-full text-xs font-bold flex items-center justify-center min-w-[1.25rem] h-[1.25rem]">{{ unreadNotifications.length }}</span>
       </button>
-      
+
+      <!-- Mark All Button -->
       <button 
-        class="mark-all-btn" 
+        class="mark-all-btn bg-gradient-to-br from-amber-700 to-amber-900 text-white px-4 py-2 rounded-lg font-semibold shadow-sm hover:from-amber-800 hover:to-amber-950 transition"
         (click)="markAllAsRead()"
         [disabled]="unreadNotifications.length === 0"
         title="Mark all as read">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M9 12l2 2 4-4"/>
-          <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/>
+          <path d="M9 12l2 2 4-4"></path>
+          <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"></path>
         </svg>
         Mark All Read
       </button>
-      
+
+      <!-- Refresh Button -->
       <button 
-        class="refresh-btn" 
+        class="refresh-btn bg-gradient-to-br from-amber-500 to-amber-700 text-white px-4 py-2 rounded-lg font-semibold shadow-sm hover:from-amber-600 hover:to-amber-800 transition disabled:opacity-60"
         (click)="refreshData()" 
         [disabled]="loading"
         title="Refresh data">
         <svg class="refresh-icon" [class.spinning]="loading" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/>
-          <path d="M21 3v5h-5"/>
-          <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/>
-          <path d="M3 21v-5h5"/>
+          <path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"></path>
+          <path d="M21 3v5h-5"></path>
+          <path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"></path>
+          <path d="M3 21v-5h5"></path>
         </svg>
         {{ loading ? 'Loading...' : 'Refresh' }}
       </button>
@@ -44,67 +50,77 @@
   </div>
 
   <!-- Loading State -->
-  <div *ngIf="loading" class="loading-state">
-    <div class="spinner"></div>
-    <p>Loading notifications...</p>
+  <div *ngIf="loading" class="loading-state flex flex-col items-center justify-center py-16 text-center">
+    <div class="spinner w-12 h-12 border-4 border-amber-100 dark:border-gray-700 border-t-amber-600 rounded-full animate-spin mb-4"></div>
+    <p class="text-amber-800 dark:text-gray-200 text-lg">Loading notifications...</p>
   </div>
 
   <!-- Error State -->
-  <div *ngIf="error && !loading" class="error-state">
-    <div class="error-icon">⚠️</div>
-    <p class="error-message">{{ error }}</p>
-    <button class="retry-btn" (click)="refreshData()">Try Again</button>
+  <div *ngIf="error && !loading" class="error-state bg-amber-50 dark:bg-gray-800 border-2 border-dashed border-amber-200 dark:border-gray-600 rounded-lg text-center py-8">
+    <div class="error-icon text-2xl mb-2">⚠️</div>
+    <p class="error-message text-red-600 dark:text-red-400 mb-4">{{ error }}</p>
+    <button class="retry-btn bg-amber-700 text-white px-4 py-2 rounded-md hover:bg-amber-800" (click)="refreshData()">Try Again</button>
   </div>
 
   <!-- Notifications List -->
-  <div *ngIf="!loading && !error && getDisplayedNotifications().length > 0" class="notifications-list">
+  <div *ngIf="!loading && !error && getDisplayedNotifications().length > 0" class="notifications-list flex flex-col gap-4">
     <div *ngFor="let notification of getDisplayedNotifications()" 
-         class="notification-card"
+         class="notification-card bg-amber-50 dark:bg-gray-800 border border-amber-200 dark:border-gray-700 rounded-lg shadow-sm transition hover:shadow-lg relative"
          [class.unread]="!notification.isRead">
       
-      <div class="notification-header">
+      <!-- Header -->
+      <div class="notification-header flex justify-between items-center p-4 border-b border-amber-200 dark:border-gray-700 bg-amber-100 dark:bg-gray-700">
         <div class="notification-info">
-          <h3 class="notification-title">{{ notification.user.username }}</h3>
-          <span class="notification-id">ID: {{ notification.id }}</span>
+          <h3 class="notification-title text-lg font-bold text-amber-800 dark:text-gray-100 m-0">{{ notification.user.username }}</h3>
+          <span class="notification-id text-sm bg-amber-200 dark:bg-gray-600 dark:text-gray-100 text-amber-800 rounded-md px-2 py-1 inline-block">ID: {{ notification.id }}</span>
         </div>
-        
-        <div class="notification-actions">
+
+        <div class="notification-actions flex items-center gap-2">
           <button 
             *ngIf="!notification.isRead"
-            class="mark-read-btn" 
+            class="mark-read-btn bg-gradient-to-br from-amber-600 to-amber-800 text-white p-2 rounded-md hover:from-amber-700 hover:to-amber-900 transition shadow-sm"
             (click)="markAsRead(notification.id)"
             title="Mark as read">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M9 12l2 2 4-4"/>
-              <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/>
+              <path d="M9 12l2 2 4-4"></path>
+              <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"></path>
             </svg>
           </button>
-          
-          <div class="read-status" [class.read]="notification.isRead">
+
+          <div class="read-status text-sm font-semibold px-2 py-1 rounded-md bg-amber-100 dark:bg-gray-600 text-amber-800 dark:text-gray-100"
+               [class.read]="notification.isRead">
             {{ notification.isRead ? 'Read' : 'Unread' }}
           </div>
         </div>
       </div>
-      
-      <div class="notification-content">
-        <p class="notification-message">{{ notification.message }}</p>
+
+      <!-- Content -->
+      <div class="notification-content p-4 ">
+        <p class="notification-message text-amber-800 dark:text-gray-200 m-0">{{ notification.message }}</p>
       </div>
-      
-      <div class="notification-footer">
-        <div class="notification-date">
-          <span class="date-label">Created:</span>
-          <span class="date-value">{{ formatDate(notification.createdAt) }}</span>
+
+      <!-- Footer -->
+      <div class="notification-footer bg-amber-100 dark:bg-gray-700 border-t border-amber-200 dark:border-gray-700 p-3 flex justify-between items-center">
+        <div class="notification-date text-sm">
+          <span class="date-label text-amber-700 dark:text-amber-400 font-semibold uppercase tracking-wider mr-1">Created:</span>
+          <span class="date-value text-amber-800 dark:text-gray-100 font-medium">{{ formatDate(notification.createdAt) }}</span>
         </div>
       </div>
     </div>
   </div>
 
   <!-- Empty State -->
-  <div *ngIf="!loading && !error && getDisplayedNotifications().length === 0" class="empty-state">
-    <div class="empty-icon">🔔</div>
-    <h3>{{ showUnreadOnly ? 'No Unread Notifications' : 'No Notifications' }}</h3>
-    <p *ngIf="showUnreadOnly">All notifications have been read!</p>
-    <p *ngIf="!showUnreadOnly">No notifications found for user: <strong>{{ currentUserId }}</strong></p>
-    <button class="retry-btn" (click)="refreshData()">Refresh</button>
+  <div *ngIf="!loading && !error && getDisplayedNotifications().length === 0" class="empty-state bg-amber-50 dark:bg-gray-800 border-2 border-dashed border-amber-200 dark:border-gray-600 rounded-lg text-center py-12">
+    <div class="empty-icon text-4xl mb-2">🔔</div>
+    <h3 class="text-xl font-semibold text-amber-800 dark:text-gray-100">
+      {{ showUnreadOnly ? 'No Unread Notifications' : 'No Notifications' }}
+    </h3>
+    <p *ngIf="showUnreadOnly" class="text-amber-700 dark:text-gray-400">All notifications have been read!</p>
+    <p *ngIf="!showUnreadOnly" class="text-amber-700 dark:text-gray-400">
+      No notifications found for user: <strong>{{ currentUserId }}</strong>
+    </p>
+    <button class="retry-btn bg-amber-700 text-white px-4 py-2 rounded-md hover:bg-amber-800 mt-4" (click)="refreshData()">Refresh</button>
   </div>
 </div>
+
+</section>
