@@ -1,7 +1,8 @@
 import { isPlatformBrowser } from '@angular/common';
-import { Component, inject, Inject, input, PLATFORM_ID } from '@angular/core';
+import { AfterViewInit, Component, inject, Inject, input, PLATFORM_ID } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../../core/services/auth/auth.service';
+import { initFlowbite } from 'flowbite';
 
 
 @Component({
@@ -10,11 +11,12 @@ import { AuthService } from '../../core/services/auth/auth.service';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent {
+export class NavbarComponent implements AfterViewInit{
     isDarkMode = false;
     isLogin =input<boolean>(false);
     constructor(@Inject(PLATFORM_ID) private platformId: any) {}
 
+  
   readonly _AuthService =  inject(AuthService);
   ngOnInit() {
     if (isPlatformBrowser(this.platformId)) {
@@ -22,7 +24,9 @@ export class NavbarComponent {
       this.applyTheme();
     }
   }
-
+  ngAfterViewInit() {
+    initFlowbite();
+  }
   toggleDarkMode() {
     this.isDarkMode = !this.isDarkMode;
     localStorage.setItem('theme', this.isDarkMode ? 'dark' : 'light');

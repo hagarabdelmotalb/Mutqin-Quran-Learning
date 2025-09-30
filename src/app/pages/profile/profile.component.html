@@ -1,50 +1,47 @@
-<div class="bg-gray-50 min-h-screen flex justify-center items-start p-4 md:p-8 gap-4 flex-col md:flex-row" dir="rtl">
-  
+<div 
+  class="bg-gray-50 dark:bg-gray-700 min-h-screen flex justify-center items-start p-4 md:p-8 gap-4 flex-col md:flex-row transition-colors duration-300" 
+  dir="rtl"
+>
   <!-- القائمة الجانبية -->
-  <div class="w-full md:w-64 bg-[#f5ead9] rounded-2xl shadow-lg p-6 text-center flex flex-col items-center">
-    <div class="w-20 h-20 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden mb-3">
+  <div class="w-full md:w-64 bg-[#f5ead9] dark:bg-gray-800 rounded-2xl shadow-lg p-6 text-center flex flex-col items-center transition-colors duration-300">
+    <div class="w-20 h-20 rounded-full bg-gray-300 dark:bg-gray-700 flex items-center justify-center overflow-hidden mb-3">
       <img 
         *ngIf="profileData?.profilePictureUrl" 
         [src]="profileData.profilePictureUrl" 
         alt="الصورة الشخصية" 
         class="w-full h-full object-cover"
       />
-      <i *ngIf="!profileData?.profilePictureUrl" class="fa fa-user text-gray-600 text-2xl"></i>
+      <i *ngIf="!profileData?.profilePictureUrl" class="fa fa-user text-gray-600 dark:text-gray-300 text-2xl"></i>
     </div>
 
-    <h2 class="text-lg font-semibold text-gray-800">
+    <h2 class="text-lg font-semibold text-gray-800 dark:text-amber-300">
       {{ profileData?.username || 'اسم المستخدم' }}
     </h2>
-    <p class="text-sm text-gray-600 mb-2">{{ profileData?.email }}</p>
+    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">{{ profileData?.email }}</p>
 
-    <div class="w-full border-t border-gray-300 my-4"></div>
+    <div class="w-full border-t border-gray-300 dark:border-gray-700 my-4"></div>
 
     <ul class="w-full space-y-2 text-right">
-      <li class="flex justify-between items-center p-2 hover:bg-amber-100 rounded-lg cursor-pointer">
-        <span>الملف الشخصي</span>
-        <i class="fa fa-user"></i>
+      <li class="flex justify-between items-center p-2 hover:bg-amber-100 dark:hover:bg-gray-700 rounded-lg cursor-pointer transition">
+        <span class="text-gray-800 dark:text-gray-300">الإعدادات</span>
+        <i class="fa fa-cog text-gray-600 dark:text-gray-400"></i>
       </li>
-      <li class="flex justify-between items-center p-2 hover:bg-amber-100 rounded-lg cursor-pointer">
-        <span>الإعدادات</span>
-        <i class="fa fa-cog"></i>
-      </li>
-      <li class="flex justify-between items-center p-2 hover:bg-amber-100 rounded-lg cursor-pointer">
-        <span>الإشعارات</span>
-        <i class="fa fa-bell"></i>
+      <li class="flex justify-between items-center p-2 hover:bg-amber-100 dark:hover:bg-gray-700 rounded-lg cursor-pointer transition">
+        <span class="text-gray-800 dark:text-gray-300" routerLink="/notifications">الإشعارات</span>
+        <i class="fa fa-bell text-gray-600 dark:text-gray-400"></i>
       </li>
 
-      <div class="w-full border-t border-gray-300 my-4"></div>
+      <div class="w-full border-t border-gray-300 dark:border-gray-700 my-4"></div>
 
-      <li class="flex justify-between items-center p-2 text-red-600 hover:bg-red-100 rounded-lg cursor-pointer">
-        <span>تسجيل الخروج</span>
+      <li class="flex justify-between items-center p-2 text-red-600 hover:bg-red-100 dark:text-red-400 dark:hover:bg-gray-700 rounded-lg cursor-pointer transition">
+        <span (click)="_AuthService.logOut()">تسجيل الخروج</span>
         <i class="fa fa-sign-out-alt"></i>
       </li>
     </ul>
   </div>
 
-  <!-- منطقة تعديل البيانات -->
-  <div class="flex-grow max-w-xl bg-[#f5ead9] rounded-2xl shadow-lg p-6 w-full">
-    <!-- حالة التحميل -->
+  <!-- edit info -->
+  <div class="flex-grow max-w-xl bg-[#f5ead9] dark:bg-gray-800 rounded-2xl shadow-lg p-6 w-full transition-colors duration-300">
     @if (isLoading) {
       <div class="flex justify-center items-center min-h-[200px]">
         <div class="animate-spin h-8 w-8 border-2 border-b-transparent border-amber-700 rounded-full"></div>
@@ -53,10 +50,10 @@
 
     <!-- حالة الخطأ -->
     @if (errorMessage && !isLoading) {
-      <div class="mb-4 p-3 bg-red-100 border border-red-400 text-red-700 rounded-md text-center">
+      <div class="mb-4 p-3 bg-red-100 dark:bg-red-900 border border-red-400 text-red-700 dark:text-red-300 rounded-md text-center">
         <i class="fa fa-exclamation-circle mr-2"></i>
         {{ errorMessage }}
-        <button (click)="reloadProfile()" class="block mt-2 text-sm underline hover:no-underline">
+        <button (click)="reloadProfile()" class="block mt-2 text-sm underline hover:no-underline dark:text-amber-400">
           إعادة المحاولة
         </button>
       </div>
@@ -64,7 +61,7 @@
 
     <!-- الرسالة -->
     @if (successMessage) {
-      <div class="mb-4 p-3 bg-green-100 border border-green-400 text-green-700 rounded-md text-center">
+      <div class="mb-4 p-3 bg-green-100 dark:bg-green-900 border border-green-400 text-green-700 dark:text-green-300 rounded-md text-center">
         <i class="fa fa-check-circle mr-2"></i>
         {{ successMessage }}
       </div>
@@ -73,27 +70,27 @@
     <!-- المحتوى -->
     @if (!isLoading && profileData) {
       <div class="text-center mb-4">
-        <div class="w-20 h-20 rounded-full bg-gray-300 flex items-center justify-center overflow-hidden mx-auto mb-2">
+        <div class="w-20 h-20 rounded-full bg-gray-300 dark:bg-gray-700 flex items-center justify-center overflow-hidden mx-auto mb-2">
           <img 
             *ngIf="profileData?.profilePictureUrl" 
             [src]="profileData.profilePictureUrl" 
             alt="الصورة الشخصية" 
             class="w-full h-full object-cover"
           />
-          <i *ngIf="!profileData?.profilePictureUrl" class="fa fa-user text-gray-600 text-2xl"></i>
+          <i *ngIf="!profileData?.profilePictureUrl" class="fa fa-user text-gray-600 dark:text-gray-300 text-2xl"></i>
         </div>
-        <h3 class="font-semibold text-lg">{{ profileData?.username }}</h3>
-        <p class="text-sm text-gray-600">{{ profileData?.email }}</p>
+        <h3 class="font-semibold text-lg text-gray-800 dark:text-amber-300">{{ profileData?.username }}</h3>
+        <p class="text-sm text-gray-600 dark:text-gray-400">{{ profileData?.email }}</p>
       </div>
 
       <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" class="space-y-4">
         <!-- الاسم -->
         <div>
-          <label class="block text-sm text-gray-600 mb-1">الاسم</label>
+          <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">الاسم</label>
           <input
             type="text"
             formControlName="username"
-            class="w-full p-2 border rounded-md focus:ring focus:ring-amber-200"
+            class="w-full p-2 border rounded-md focus:ring focus:ring-amber-200 bg-white dark:bg-gray-700 dark:text-white dark:border-gray-600"
             [class.border-red-500]="isFieldInvalid('username')"
             placeholder="اسم المستخدم"
           />
@@ -104,22 +101,22 @@
 
         <!-- البريد الإلكتروني -->
         <div>
-          <label class="block text-sm text-gray-600 mb-1">البريد الإلكتروني</label>
+          <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">البريد الإلكتروني</label>
           <input
             type="email"
             formControlName="email"
-            class="w-full p-2 border rounded-md bg-gray-100 cursor-not-allowed"
+            class="w-full p-2 border rounded-md bg-gray-100 dark:bg-gray-700 dark:text-gray-400 cursor-not-allowed dark:border-gray-600"
             readonly
           />
         </div>
 
         <!-- رقم الجوال -->
         <div>
-          <label class="block text-sm text-gray-600 mb-1">رقم الجوال</label>
+          <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">رقم الجوال</label>
           <input
             type="text"
             formControlName="phone"
-            class="w-full p-2 border rounded-md focus:ring focus:ring-amber-200"
+            class="w-full p-2 border rounded-md focus:ring focus:ring-amber-200 bg-white dark:bg-gray-700 dark:text-white dark:border-gray-600"
             [class.border-red-500]="isFieldInvalid('phone')"
             placeholder="أدخل رقم الجوال"
           />
@@ -131,11 +128,11 @@
         <!-- العمر -->
         @if (profileData?.role === 'STUDENT') {
           <div>
-            <label class="block text-sm text-gray-600 mb-1">العمر</label>
+            <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">العمر</label>
             <input
               type="number"
               formControlName="age"
-              class="w-full p-2 border rounded-md focus:ring focus:ring-amber-200"
+              class="w-full p-2 border rounded-md focus:ring focus:ring-amber-200 bg-white dark:bg-gray-700 dark:text-white dark:border-gray-600"
               placeholder="أدخل عمرك"
             />
           </div>
@@ -143,22 +140,22 @@
 
         <!-- الدور -->
         <div>
-          <label class="block text-sm text-gray-600 mb-1">الدور</label>
+          <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">الدور</label>
           <input
             type="text"
             [value]="getRoleName(profileData?.role)"
-            class="w-full p-2 border rounded-md bg-gray-100 cursor-not-allowed"
+            class="w-full p-2 border rounded-md bg-gray-100 dark:bg-gray-700 dark:text-gray-400 cursor-not-allowed dark:border-gray-600"
             readonly
           />
         </div>
 
         <!-- مستوى الحفظ -->
         <div>
-          <label class="block text-sm text-gray-600 mb-1">مستوى الحفظ</label>
+          <label class="block text-sm text-gray-600 dark:text-gray-300 mb-1">مستوى الحفظ</label>
           <input
             type="text"
             [value]="getMemorizationLevel(profileData?.memorizationleveltype)"
-            class="w-full p-2 border rounded-md bg-gray-100 cursor-not-allowed"
+            class="w-full p-2 border rounded-md bg-gray-100 dark:bg-gray-700 dark:text-gray-400 cursor-not-allowed dark:border-gray-600"
             readonly
           />
         </div>
@@ -167,7 +164,7 @@
         <button
           type="submit"
           [disabled]="profileForm.invalid || isUpdating"
-          class="w-full py-2 px-4 bg-[#a86834] text-white rounded-md hover:bg-[#8f5426] transition disabled:opacity-50 disabled:cursor-not-allowed"
+          class="w-full py-2 px-4 bg-[#a86834] dark:bg-amber-600 text-white rounded-md hover:bg-[#8f5426] dark:hover:bg-amber-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
           @if (isUpdating) {
             <span class="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></span>

@@ -3,12 +3,16 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { StudentService } from '../../core/services/student/student.service';
 import { AuthService } from '../../core/services/auth/auth.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router , RouterLink, RouterLinkActive} from '@angular/router';
 
 @Component({
   selector: 'app-profile',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    RouterLink
+  ],
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
@@ -28,7 +32,7 @@ export class ProfileComponent implements OnInit {
     private authService: AuthService,
     private router: Router
   ) {}
-
+readonly _AuthService =  inject(AuthService);
 ngOnInit(): void {
   this.profileForm = this.fb.group({
     username: ['', [Validators.required, Validators.minLength(3)]],
