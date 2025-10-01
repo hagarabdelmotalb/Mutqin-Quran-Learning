@@ -1,6 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { BookSessionRequest, SessionService } from '../../core/services/session/session.service';
 import { UserSearchResponse } from '../../models/profile/profile.module';
 import { AuthService } from '../../core/services/auth/auth.service';
@@ -25,7 +26,8 @@ export class BooksessionComponent implements OnInit {
     private fb: FormBuilder, 
     private bookSessionService: SessionService,
     private authService: AuthService,
-    private studentService: StudentService)
+    private studentService: StudentService,
+    private route: ActivatedRoute)
      {
     this.bookSessionForm = this.fb.group({
       tutorId: ['', Validators.required]
@@ -34,6 +36,12 @@ export class BooksessionComponent implements OnInit {
 
   
   ngOnInit(): void {
+    // Get tutor ID from route parameters
+    const tutorId = this.route.snapshot.paramMap.get('tutorId');
+    if (tutorId) {
+      this.bookSessionForm.patchValue({ tutorId: tutorId });
+    }
+
     const currentUser = this.authService.getCurrentUser();
     const emailFromToken = this.authService.getUserEmailFromToken();
     const username = this.authService.getCurrentUsername();

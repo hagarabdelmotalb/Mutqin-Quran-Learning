@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Location } from '@angular/common';
 import { StudentService } from '../../core/services/student/student.service';
 
 @Component({
   selector: 'app-tutorsdetials',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './tutorsdetials.component.html',
   styleUrl: './tutorsdetials.component.scss'
 })

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { StudentService } from '../../core/services/student/student.service';
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-tutors',
-  imports: [FormsModule],
+  imports: [FormsModule,RouterLink],
   templateUrl: './tutors.component.html',
   styleUrl: './tutors.component.scss'
 })
@@ -37,6 +37,10 @@ export class TutorsComponent implements OnInit {
 
   viewDetails(id: string): void {
     this.router.navigate(['/tutors', id]);
+  }
+
+  bookSession(tutorId: string): void {
+    this.router.navigate(['/booksession', tutorId]);
   }
 
   searchTutors(): void {
