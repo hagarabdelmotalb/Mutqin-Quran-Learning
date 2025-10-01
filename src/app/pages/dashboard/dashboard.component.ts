@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { SessionService, StudentSessionDto } from '../../core/services/session/session.service';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { ProgressService, ProgressTotals } from '../../core/services/progress/progress.service';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -16,6 +17,7 @@ export class DashboardComponent implements OnInit {
   private readonly sessionService = inject(SessionService);
   private readonly authService = inject(AuthService);
   private readonly progressService = inject(ProgressService);
+  private readonly ngxSpinnerService= inject(NgxSpinnerService)
 
   sessions: StudentSessionDto[] = [];
   filteredSessions: StudentSessionDto[] = [];
@@ -25,6 +27,7 @@ export class DashboardComponent implements OnInit {
   totals: ProgressTotals | null = null;
 
   ngOnInit(): void {
+    this.ngxSpinnerService.show('loading-1');
     const username = this.authService.getCurrentUsername();
     if (!username) {
       this.errorMessage = 'User not logged in';
@@ -51,6 +54,7 @@ export class DashboardComponent implements OnInit {
         // Do not override sessions error, just set a friendly note if needed
       }
     });
+    this.ngxSpinnerService.hide('loading-1');
   }
 
   searchSessions(): void {

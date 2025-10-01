@@ -5,7 +5,6 @@ import { BookSessionRequest, SessionService } from '../../core/services/session/
 import { UserSearchResponse } from '../../models/profile/profile.module';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { StudentService } from '../../core/services/student/student.service';
-import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-booksession',
@@ -15,7 +14,6 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./booksession.component.scss']
 })
 export class BooksessionComponent implements OnInit {
-  private readonly  toastr= inject(ToastrService)
   bookSessionForm: FormGroup;
   studentId: number | null = null;
   responseMessage: string | null = null;
@@ -79,12 +77,10 @@ export class BooksessionComponent implements OnInit {
         next: (res) => {
           this.responseMessage = res.message;
           this.calendlyUrl = res.scheduling_url;
-          this.toastr.success(res.message,'success')
         },
         error: (err) => {
           console.error(err);
           this.responseMessage = 'حدث خطأ أثناء حجز الجلسة';
-          this.toastr.error('حدث خطأ أثناء حجز الجلسة','error')
         }
       });
     }
