@@ -13,14 +13,15 @@
                     </div>
 
                     <!-- Search Form -->
-                    <form class="flex items-center gap-3 bg-white dark:bg-gray-800 shadow-lg p-4 rounded-xl mb-8 card-hover">
-                        <button type="submit" class="px-6 py-3 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-lg transition-all duration-300 shadow-md">
+                    <form class="flex items-center gap-3 bg-white dark:bg-gray-800 shadow-lg p-4 rounded-xl mb-8 card-hover" (submit)="$event.preventDefault()">
+                        <button type="button" class="px-6 py-3 bg-amber-600 hover:bg-amber-700 text-white font-medium rounded-lg transition-all duration-300 shadow-md">
                              بحث
                         </button>
                         <input 
                             type="text" 
                             placeholder="اكتب اسم الشيخ..." 
                             class="flex-1 px-4 py-3 text-gray-800 dark:text-gray-100 bg-gray-50 dark:bg-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all"
+                            [(ngModel)]="searchTerm" name="searchTerm" (input)="searchSessions()"
                         />
                     </form>
 
@@ -30,7 +31,7 @@
                         <div *ngIf="!isLoading && errorMessage" class="text-center text-red-600">{{ errorMessage }}</div>
                         <div *ngIf="!isLoading && !errorMessage && sessions.length === 0" class="text-center text-gray-600 dark:text-gray-300">لا توجد جلسات</div>
 
-                        <div *ngFor="let s of sessions" class="w-full max-w-2xl session-card text-white p-5 rounded-2xl shadow-lg">
+                        <div *ngFor="let s of filteredSessions" class="w-full max-w-2xl session-card text-white p-5 rounded-2xl shadow-lg">
                             <div class="flex justify-between items-center mb-3">
                                 <div>
                                     <span class="text-lg font-semibold">جلسة رقم: {{ s.sessionId }}</span>

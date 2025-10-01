@@ -1,0 +1,96 @@
+<section dir="rtl" class="w-11/12 md:w-8/12 mx-auto my-8">
+  <div class="header-gradient dark:bg-gradient-to-b from-gray-700 to-gray-900 text-white rounded-t-2xl p-6 relative">
+    <button
+     (click)="goBackToTutors()" 
+      class="absolute top-4 right-4 bg-white text-amber-800 px-3 py-1 rounded-full text-sm">
+      ← العودة إلى القائمة
+    </button>
+
+    <div class="flex flex-col items-center mt-6">
+
+    <div class="w-20 h-20 rounded-full bg-gray-300 dark:bg-gray-700 flex items-center justify-center overflow-hidden mb-3">
+      <img 
+        *ngIf="tutor?.profilePictureUrl" 
+        [src]="tutor.profilePictureUrl" 
+        alt="الصورة الشخصية" 
+        class="w-full h-full object-cover"
+      />
+     <i *ngIf="!tutor?.profilePictureUrl" class="fa-solid fa-user text-3xl"></i>
+    <i class="fa fa-user text-gray-600 dark:text-gray-300 text-2xl"></i>
+
+    </div>
+      <h2 class="text-2xl font-bold">{{ tutor?.username }}</h2>
+      <span class="bg-white text-amber-800 px-3 py-1 mt-2 rounded-full text-sm">
+        <i class="fa-solid fa-circle-check"></i>
+        معلم معتمد</span>
+    </div>
+  </div>
+
+<div class="bg-amber-50 rounded-b-2xl shadow p-6 space-y-4 dark:bg-gray-800">
+  <h3 class="text-xl font-semibold text-amber-800 mb-3">معلومات الاتصال</h3>
+  <div class="space-y-2 text-gray-800 dark:text-gray-200">
+
+    <div class="flex items-center gap-2">
+      <svg class="w-5 h-5 text-amber-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M21 8V6a2 2 0 00-2-2H5a2 2 0 00-2 2v2m18 0l-9 6-9-6m18 0v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8" />
+      </svg>
+      <span>البريد الإلكتروني: {{ tutor?.email }}</span>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <svg class="w-5 h-5 text-amber-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M3 5a2 2 0 012-2h3l2 5-2 1a11 11 0 006 6l1-2 5 2v3a2 2 0 01-2 2h-1C9.163 20 4 14.837 4 8V7a2 2 0 01-1-2z" />
+      </svg>
+      <span>رقم الهاتف: {{ tutor?.phone }}</span>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <svg class="w-5 h-5 text-amber-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M12 14c4.418 0 8-1.79 8-4V5l-8 4-8-4v5c0 2.21 3.582 4 8 4z" />
+      </svg>
+      <span>العمر: {{ tutor?.age ? tutor.age : 'غير محدد' }}</span>
+    </div>
+  </div>
+
+  <h3 class="text-xl font-semibold text-amber-800 mt-6 mb-3">معلومات الحساب</h3>
+  <div class="space-y-2 text-gray-800 dark:text-gray-200">
+    <div class="flex items-center gap-2">
+      <svg class="w-5 h-5 text-amber-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M17 20h5v-2a4 4 0 00-5-3.87M9 20H4v-2a4 4 0 015-3.87m0 0a4 4 0 015 0m0 0A4 4 0 0120 18v2M9 7a4 4 0 118 0 4 4 0 01-8 0z" />
+      </svg>
+      <span>معرف المستخدم: #{{ tutor?.id }}</span>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <svg class="w-5 h-5 text-amber-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M12 11c0 1.657-1.343 3-3 3S6 12.657 6 11s1.343-3 3-3 3 1.343 3 3zm0 0v2.5a3.5 3.5 0 007 0V11m0 0a3 3 0 10-3-3" />
+      </svg>
+      <span>الدور: {{ tutor?.role }}</span>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <svg class="w-5 h-5 text-amber-700" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round"
+          d="M11 17a4 4 0 01-4-4V5a4 4 0 018 0v8a4 4 0 01-4 4z" />
+      </svg>
+      <span>النقاط المكتسبة: {{ tutor?.points }} نقطة</span>
+    </div>
+  </div>
+
+  <div class="mt-6 flex gap-3">
+    <button class="flex-1 bg-amber-700 text-white py-2 rounded-lg hover:bg-amber-800 transition">
+      <i class="fa-solid fa-envelope"></i>
+      إرسال بريد الكتروني
+    </button>
+    <button class="flex-1 bg-green-700 text-white py-2 rounded-lg hover:bg-green-800 transition">
+      <i class="fa-solid fa-phone"></i>
+      اتصال  
+    </button>
+  </div>
+</div>
+</section>

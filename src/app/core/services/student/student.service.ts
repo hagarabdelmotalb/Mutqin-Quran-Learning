@@ -26,7 +26,9 @@ export class StudentService {
     });
   }
 
-
+   getAllTutors(): Observable<any> {
+    return this.httpClient.get(`${this.baseUrl}/api/profile/roles?role=TUTOR`);
+  }
 
   viewProfileByIdAndRole(id: string | number, role: string): Observable<StudentRoleProfile> {
     const paramsUrl = `${this.baseUrl}/api/profile/role?id=${id}&role=${encodeURIComponent(role)}`;

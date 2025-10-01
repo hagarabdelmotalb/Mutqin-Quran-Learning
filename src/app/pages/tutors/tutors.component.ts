@@ -1,33 +1,53 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { StudentService } from '../../core/services/student/student.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-tutors',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './tutors.component.html',
   styleUrl: './tutors.component.scss'
 })
-export class TutorsComponent {
-  tutors = [
-    {
-      id: 1,
-      name: 'أحمد علي',
-      subject: 'محفظ قرأن',
-      rating: 4.8,
-      bio:'المواعيد كل ثلاثاء من 11:00 - 12:00'
-    },
-    {
-      id: 2,
-      name: 'سارة محمد',
-      subject: 'اللغة الإنجليزية',
-      rating: 4.6,
-      bio:'المواعيد كل ثلاثاء من 11:00 - 12:00'
-    },
-    {
-      id: 3,
-      name: 'محمود حسن',
-      subject: 'الفيزياء',
-      rating: 4.7,
-      bio: 'المواعيد كل ثلاثاء من 11:00 - 12:00'
+export class TutorsComponent implements OnInit {
+    tutors: any[] = [];
+    filteredTutors: any[] = [];
+    searchTerm: string = '';
+
+
+  constructor(private studentService: StudentService, private router: Router) {}
+
+  ngOnInit(): void {
+    this.loadTutors();
+  }
+
+  loadTutors(): void {
+    this.studentService.getAllTutors().subscribe({
+      next: (data) => {
+        this.tutors = data;
+        // Initialize filtered list for real-time search display
+        this.filteredTutors = [...this.tutors];
+        console.log('Tutors:', this.tutors);
+      },
+      error: (err) => {
+        console.error('Error fetching tutors', err);
+      }
+    });
+  }
+
+  viewDetails(id: string): void {
+    this.router.navigate(['/tutors', id]);
+  }
+
+  searchTutors(): void {
+    const term = this.searchTerm.trim().toLowerCase();
+    if (!term) {
+      this.filteredTutors = [...this.tutors];
+      return;
     }
-  ];
+    this.filteredTutors = this.tutors.filter((tutor) =>
+      (tutor.username || '').toLowerCase().includes(term)
+    );
+  }
+
 }

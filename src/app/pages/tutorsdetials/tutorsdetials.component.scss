@@ -1,0 +1,14 @@
+.header-gradient {
+  background: linear-gradient(135deg, #b3682f 40%, #92400e 100%);
+  position: relative;
+  color: white;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at top right, rgba(255,255,255,0.1), transparent 70%);
+    pointer-events: none;
+  }
+}

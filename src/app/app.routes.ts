@@ -1,3 +1,4 @@
+import { TutorsdetialsComponent } from './pages/tutorsdetials/tutorsdetials.component';
 import { Routes } from '@angular/router';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { BlankLayoutComponent } from './layouts/blank-layout/blank-layout.component';
@@ -55,6 +56,12 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/tutors/tutors.component').then(m => m.TutorsComponent),
         title: 'Tutors',
+      },
+      {
+        path: 'tutors/:id',
+        loadComponent: () =>
+          import('./pages/tutorsdetials/tutorsdetials.component').then(m => m.TutorsdetialsComponent),
+        title: 'Tutors details',
       },
       {
         path: 'profile',

@@ -1,12 +1,13 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { SessionService, StudentSessionDto } from '../../core/services/session/session.service';
 import { AuthService } from '../../core/services/auth/auth.service';
 
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss']
 })
@@ -15,6 +16,8 @@ export class DashboardComponent implements OnInit {
   private readonly authService = inject(AuthService);
 
   sessions: StudentSessionDto[] = [];
+  filteredSessions: StudentSessionDto[] = [];
+  searchTerm: string = '';
   isLoading = false;
   errorMessage: string | null = null;
 
@@ -28,6 +31,7 @@ export class DashboardComponent implements OnInit {
     this.sessionService.getSessionsByUsername(username).subscribe({
       next: (sessions) => {
         this.sessions = sessions;
+        this.filteredSessions = [...this.sessions];
         this.isLoading = false;
       },
       error: () => {
@@ -35,6 +39,17 @@ export class DashboardComponent implements OnInit {
         this.isLoading = false;
       }
     });
+  }
+
+  searchSessions(): void {
+    const term = this.searchTerm.trim().toLowerCase();
+    if (!term) {
+      this.filteredSessions = [...this.sessions];
+      return;
+    }
+    this.filteredSessions = this.sessions.filter((s) =>
+      (s.sheikhUsername || '').toLowerCase().includes(term)
+    );
   }
 }
 
