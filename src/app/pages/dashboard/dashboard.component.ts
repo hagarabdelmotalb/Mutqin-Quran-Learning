@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SessionService, StudentSessionDto } from '../../core/services/session/session.service';
 import { AuthService } from '../../core/services/auth/auth.service';
+import { ProgressService, ProgressTotals } from '../../core/services/progress/progress.service';
 
 
 @Component({
@@ -14,12 +15,14 @@ import { AuthService } from '../../core/services/auth/auth.service';
 export class DashboardComponent implements OnInit {
   private readonly sessionService = inject(SessionService);
   private readonly authService = inject(AuthService);
+  private readonly progressService = inject(ProgressService);
 
   sessions: StudentSessionDto[] = [];
   filteredSessions: StudentSessionDto[] = [];
   searchTerm: string = '';
   isLoading = false;
   errorMessage: string | null = null;
+  totals: ProgressTotals | null = null;
 
   ngOnInit(): void {
     const username = this.authService.getCurrentUsername();
@@ -37,6 +40,15 @@ export class DashboardComponent implements OnInit {
       error: () => {
         this.errorMessage = 'Failed to load sessions';
         this.isLoading = false;
+      }
+    });
+
+    this.progressService.getProgressTotals(username).subscribe({
+      next: (totals) => {
+        this.totals = totals;
+      },
+      error: () => {
+        // Do not override sessions error, just set a friendly note if needed
       }
     });
   }
