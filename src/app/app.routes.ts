@@ -1,10 +1,10 @@
+import { TutorSessionComponent } from './pages/tutor-session/tutor-session.component';
 import { TutorsdetialsComponent } from './pages/tutorsdetials/tutorsdetials.component';
 import { Routes } from '@angular/router';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { BlankLayoutComponent } from './layouts/blank-layout/blank-layout.component';
 import { authGuard } from './core/guards/auth.guard';
 import { logedGuard } from './core/guards/loged/loged.guard';
-import { roleRedirectGuard } from './core/guards/role-redirect/role-redirect.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -55,6 +55,12 @@ export const routes: Routes = [
         path: 'tutor-dashboard',
         loadComponent: () =>
           import('./pages/tutor-dashboard/tutor-dashboard.component').then(m => m.TutorDashboardComponent),
+        title: 'Tutor Dashboard',
+      },
+            {
+        path: 'tutor-session',
+        loadComponent: () =>
+          import('./pages/tutor-session/tutor-session.component').then(m => m.TutorSessionComponent),
         title: 'Tutor Dashboard',
       },
       {

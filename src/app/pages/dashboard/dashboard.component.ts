@@ -31,16 +31,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.ngxSpinnerService.show('loading-1');
     const username = this.authService.getCurrentUsername();
-    const userRole = this.authService.getUserRole();
     
     if (!username) {
       this.errorMessage = 'User not logged in';
-      return;
-    }
-
-    // Redirect tutors to tutor dashboard
-    if (userRole === 'TUTOR') {
-      this.router.navigate(['/tutor-dashboard']);
       return;
     }
     this.isLoading = true;

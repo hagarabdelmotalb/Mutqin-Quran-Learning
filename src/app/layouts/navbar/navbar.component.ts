@@ -16,7 +16,15 @@ export class NavbarComponent implements AfterViewInit{
      userRole: string | null = null;
     isLogin =input<boolean>(false);
     constructor(@Inject(PLATFORM_ID) private platformId: any) {}
-
+    
+getRoleName(role: string | null | undefined): string {
+  switch (role) {
+    case 'STUDENT': return 'طالب';
+    case 'TUTOR': return 'معلم';
+    case 'PARENT': return 'ولي أمر';
+    default: return role || 'غير محدد';
+  }
+}
   
   readonly _AuthService =  inject(AuthService);
   ngOnInit() {

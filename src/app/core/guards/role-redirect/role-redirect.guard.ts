@@ -7,10 +7,19 @@ export const roleRedirectGuard: CanActivateFn = (route, state) => {
   const router = inject(Router);
 
   const user = authService.getCurrentUser();
+  
+  // If no user is logged in, redirect to login
+  if (!user) {
+    return router.parseUrl('/login');
+  }
 
-  if (user?.role === 'TUTOR') {
+  // Redirect based on role
+  if (user.role === 'TUTOR') {
     return router.parseUrl('/tutor-dashboard');
+  } else if (user.role === 'STUDENT') {
+    return router.parseUrl('/home');
   } else {
+    // Default fallback for unknown roles
     return router.parseUrl('/home');
   }
 };

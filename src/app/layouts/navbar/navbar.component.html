@@ -12,132 +12,173 @@
     </button>
 
     <div class="hidden w-full flex-grow md:flex md:w-auto" id="navbar-default">
+      @if(isLogin()){
+       @if (userRole === 'TUTOR') {
+          <ul
+            class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg 
+                   md:bg-amber-900 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 
+                   md:border-0 bg-amber-900 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 
+                   justify-center w-full">
 
-      @if (isLogin()) {
-      <ng-container>
-        @if (userRole === 'TUTOR') {
-          <ul class="font-medium flex flex-col md:flex-row ...">
-            <li>
-              <a routerLink="/tutor-dashboard"
-                routerLinkActive="text-amber-300 border-b-2 border-amber-300"
-                class="block py-2 px-3 text-amber-100 md:p-0 dark:text-amber-300">
-                لوحة المعلم
-              </a>
-            </li>
-            <li>
-              <a (click)="_AuthService.logOut()" class="block py-2 px-3 text-amber-100 md:p-0 dark:text-amber-300">
-                تسجيل الخروج
-              </a>
-            </li>
-          </ul>
-        } @else {
-          <!-- هنا تحطي لينكات الطالب -->
-          <ul class="font-medium flex flex-col md:flex-row ...">
             <li>
               <a routerLink="/home" routerLinkActive="text-amber-300 border-b-2 border-amber-300"
-                class="block py-2 px-3 text-amber-100 md:p-0 dark:text-amber-300">
-                الرئيسية
-              </a>
+                class="block py-2 px-3 bg-amber-900 text-amber-100 rounded-sm md:p-0 dark:bg-gray-900 dark:text-amber-300"
+                aria-current="page">الرئيسية</a>
             </li>
+
+            <li>
+              <a routerLink="/tutor-dashboard" routerLinkActive="text-amber-300 border-b-2 border-amber-300"
+                class="block py-2 px-3 bg-amber-900 text-amber-100 rounded-sm md:p-0 dark:bg-gray-900 dark:text-amber-300"
+                aria-current="page">لوحة التحكم للمعلم</a>
+            </li>
+
+            <li>
+              <a routerLink="/tutor-session" routerLinkActive="text-amber-300 border-b-2 border-amber-300"
+                class="block py-2 px-3 bg-amber-900 text-amber-100 rounded-sm md:p-0 dark:bg-gray-900 dark:text-amber-300"
+                aria-current="page">اضف جلسه</a>
+            </li>
+
+
+            <li>
+              <a routerLink="/notifications" routerLinkActive="text-amber-300 border-b-2 border-amber-300"
+                class="block py-2 px-3 bg-amber-900 text-amber-100 rounded-sm md:p-0 dark:bg-gray-900 dark:text-amber-300"
+                aria-current="page">الإشعارات <i class="fa-solid fa-bell"></i></a>
+            </li>
+
+            <!-- Dropdown -->
+            <li class="relative">
+              <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
+                class="flex items-center justify-between w-full py-2 px-3 text-amber-100 rounded-sm md:p-0 md:w-auto dark:text-amber-300">
+                حسابي
+                <svg class="w-2.5 h-2.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                  viewBox="0 0 10 6">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 4 4 4-4" />
+                </svg>
+              </button>
+
+              <div id="dropdownNavbar"
+                class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownNavbarLink">
+                  <li>
+                    <a routerLink="/profile" routerLinkActive="text-amber-300 border-b-2 border-amber-300"
+                      class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                      الملف الشخصي
+                    </a>
+                  </li>
+                  <li class="px-4 py-2">
+                    <label class="relative inline-flex items-center cursor-pointer">
+                      <input type="checkbox" class="sr-only peer" [checked]="isDarkMode"
+                        (change)="toggleDarkMode()">
+                      <div
+                        class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-checked:bg-amber-600 dark:bg-gray-600">
+                        <div
+                          class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform peer-checked:translate-x-5">
+                        </div>
+                      </div>
+                      <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        {{ isDarkMode ? 'الوضع الداكن' : 'الوضع الفاتح' }}
+                      </span>
+                    </label>
+                  </li>
+                </ul>
+                <div class="py-2">
+                  <a (click)="_AuthService.logOut()"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:hover:text-white">
+                    تسجيل الخروج
+                  </a>
+                </div>
+              </div>
+            </li>
+          </ul>
+
+        } @else {
+          <!-- حالة الطالب -->
+          <ul
+            class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg 
+                   md:bg-amber-900 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 
+                   md:border-0 bg-amber-900 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 
+                   justify-center w-full">
+
+            <li>
+              <a routerLink="/home" routerLinkActive="text-amber-300 border-b-2 border-amber-300"
+                class="block py-2 px-3 bg-amber-900 text-amber-100 rounded-sm md:p-0 dark:bg-gray-900 dark:text-amber-300"
+                aria-current="page">الرئيسية</a>
+            </li>
+
             <li>
               <a routerLink="/dashboard" routerLinkActive="text-amber-300 border-b-2 border-amber-300"
-                class="block py-2 px-3 text-amber-100 md:p-0 dark:text-amber-300">
-                لوحة التحكم
-              </a>
+                class="block py-2 px-3 bg-amber-900 text-amber-100 rounded-sm md:p-0 dark:bg-gray-900 dark:text-amber-300"
+                aria-current="page">لوحة التحكم</a>
             </li>
+
             <li>
-              <a (click)="_AuthService.logOut()" class="block py-2 px-3 text-amber-100 md:p-0 dark:text-amber-300">
-                تسجيل الخروج
-              </a>
+              <a routerLink="/tutors" routerLinkActive="text-amber-300 border-b-2 border-amber-300"
+                class="block py-2 px-3 bg-amber-900 text-amber-100 rounded-sm md:p-0 dark:bg-gray-900 dark:text-amber-300"
+                aria-current="page">المعلمين</a>
+            </li>
+
+            <li>
+              <a routerLink="/practice" routerLinkActive="text-amber-300 border-b-2 border-amber-300"
+                class="block py-2 px-3 bg-amber-900 text-amber-100 rounded-sm md:p-0 dark:bg-gray-900 dark:text-amber-300"
+                aria-current="page">التدريب</a>
+            </li>
+
+            <li>
+              <a routerLink="/notifications" routerLinkActive="text-amber-300 border-b-2 border-amber-300"
+                class="block py-2 px-3 bg-amber-900 text-amber-100 rounded-sm md:p-0 dark:bg-gray-900 dark:text-amber-300"
+                aria-current="page">الإشعارات <i class="fa-solid fa-bell"></i></a>
+            </li>
+
+            <!-- نفس Dropdown بتاع الحساب -->
+            <li class="relative">
+              <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
+                class="flex items-center justify-between w-full py-2 px-3 text-amber-100 rounded-sm md:p-0 md:w-auto dark:text-amber-300">
+                حسابي
+                <svg class="w-2.5 h-2.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                  viewBox="0 0 10 6">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="m1 1 4 4 4-4" />
+                </svg>
+              </button>
+
+              <div id="dropdownNavbar"
+                class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownNavbarLink">
+                  <li>
+                    <a routerLink="/profile" routerLinkActive="text-amber-300 border-b-2 border-amber-300"
+                      class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                      الملف الشخصي
+                    </a>
+                  </li>
+                  <li class="px-4 py-2">
+                    <label class="relative inline-flex items-center cursor-pointer">
+                      <input type="checkbox" class="sr-only peer" [checked]="isDarkMode"
+                        (change)="toggleDarkMode()">
+                      <div
+                        class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-checked:bg-amber-600 dark:bg-gray-600">
+                        <div
+                          class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform peer-checked:translate-x-5">
+                        </div>
+                      </div>
+                      <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
+                        {{ isDarkMode ? 'الوضع الداكن' : 'الوضع الفاتح' }}
+                      </span>
+                    </label>
+                  </li>
+                </ul>
+                <div class="py-2">
+                  <a (click)="_AuthService.logOut()"
+                    class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-900 dark:text-gray-200 dark:hover:text-white">
+                    تسجيل الخروج
+                  </a>
+                </div>
+              </div>
             </li>
           </ul>
         }
-      </ng-container>
-} 
+      }
 
-      <!-- <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg 
-        md:bg-amber-900 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 
-          md:border-0 bg-amber-900 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 
-          justify-center w-full">
-        
-        <li>
-          <a routerLink="/home" routerLinkActive="text-amber-300 border-b-2 border-amber-300"
-           class="block py-2 px-3 bg-amber-900 text-amber-100 rounded-sm  md:p-0  dark:bg-gray-900 dark:text-amber-300" aria-current="page">الرئيسية</a>
-        </li>
-
-        <li>
-          <a routerLink="/dashboard" routerLinkActive="text-amber-300 border-b-2 border-amber-300"
-          class="block py-2 px-3 bg-amber-900 text-amber-100 rounded-sm  md:p-0  dark:bg-gray-900 dark:text-amber-300" aria-current="page">لوحة التحكم</a>
-        </li>
-
-        <li>
-          <a routerLink="/tutors" routerLinkActive="text-amber-300 border-b-2 border-amber-300" 
-          class="block py-2 px-3 bg-amber-900 text-amber-100 rounded-sm  md:p-0 dark:bg-gray-900 dark:text-amber-300" aria-current="page">المعلمين</a>
-        </li>
-
-        <li>
-          <a routerLink="/practice" routerLinkActive="text-amber-300 border-b-2 border-amber-300" 
-          class="block py-2 px-3 bg-amber-900 text-amber-100 rounded-sm  md:p-0 dark:bg-gray-900 dark:text-amber-300" aria-current="page">التدريب</a>
-        </li>
-
-        <li>
-          <a routerLink="/notifications" routerLinkActive="text-amber-300 border-b-2 border-amber-300" 
-          class="block py-2 px-3 bg-amber-900 text-amber-100 rounded-sm  md:p-0 dark:bg-gray-900 dark:text-amber-300" aria-current="page">الإشعارات <i class="fa-solid fa-bell"></i></a>
-        </li>
-
-        <li class="relative">
-          <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
-            class="flex items-center justify-between w-full py-2 px-3 text-amber-100 rounded-sm md:p-0 md:w-auto dark:text-amber-300">
-              حسابي
-              <svg class="w-2.5 h-2.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                  viewBox="0 0 10 6">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="m1 1 4 4 4-4" />
-              </svg>
-          </button>
-
-         <div id="dropdownNavbar"
-          class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700 dark:divide-gray-600">
-          <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownNavbarLink">
-            <li>
-              <a routerLink="/profile" routerLinkActive="text-amber-300 border-b-2 border-amber-300"
-              class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                الملف الشخصي
-              </a>
-            </li>
-            <li class="px-4 py-2">
-              <label class="relative inline-flex items-center cursor-pointer">
-                <input 
-                  type="checkbox" 
-                  class="sr-only peer" 
-                  [checked]="isDarkMode" 
-                  (change)="toggleDarkMode()"
-                >
-
-                <div class="relative w-11 h-6 bg-gray-200 rounded-full peer peer-checked:bg-amber-600 dark:bg-gray-600">
-                 
-                  <div class="absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full transition-transform peer-checked:translate-x-5"></div>
-                </div>
-
-              
-                <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">
-                  {{ isDarkMode ? 'الوضع الداكن' : 'الوضع الفاتح' }}
-                </span>
-              </label>
-            </li>
-
-            
-          </ul>
-          <div class="py-2">
-              <a (click)="_AuthService.logOut()" 
-                class="lock px-4 py-2 text-sm text-gray-700 hover:bg-gray-100  dark:bg-gray-900 dark:text-gray-200 dark:hover:text-white">
-                تسجيل الخروج
-              </a>
-          </div>
-         </div>
-        </li>
-      </ul> -->
-      
 
       @if(!isLogin()){
         <ul class="ms-auto font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:bg-amber-900 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md: bg-amber-900 md:dark:bg-gray-900 dark:border-gray-700">

@@ -72,14 +72,19 @@ export class LoginComponent {
             name: userData.username, // Use username as name if name is not available
             email: userData.email,
             phone: userData.phone,
-            age: Number(userData.age)
+            age: Number(userData.age),
+            role: userData.role
           };
           
           // Set user data in auth service
           this.authService.setUserData(user);
           
-          // Navigate to home after setting user data
-          this.router.navigate(['/home']);
+          // Navigate based on role
+          if (user.role === 'TUTOR') {
+            this.router.navigate(['/tutor-dashboard']);
+          } else {
+            this.router.navigate(['/home']);
+          }
         },
         error: (err) => {
           console.error('Error fetching user data:', err);
