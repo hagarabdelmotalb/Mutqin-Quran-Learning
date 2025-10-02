@@ -38,8 +38,9 @@ export class SheikhsService {
     return this.httpClient.get<StudentInfo[]>(url, { headers: this.getHeaders() });
   }
 
-  addCalendlyLink(tutorUsername: string){
+  addCalendlyLink(tutorUsername: string, link: string): Observable<any> {
      const url = `${this.baseUrl}/api/tutor/progress/event-type-link/${encodeURIComponent(tutorUsername)}`;
-     return this.httpClient.post();
-  }
+     const body = { link };
+     return this.httpClient.post(url, body, { headers: this.getHeaders() });
+   }
 }
