@@ -13,6 +13,7 @@ import { initFlowbite } from 'flowbite';
 })
 export class NavbarComponent implements AfterViewInit{
     isDarkMode = false;
+     userRole: string | null = null;
     isLogin =input<boolean>(false);
     constructor(@Inject(PLATFORM_ID) private platformId: any) {}
 
@@ -23,6 +24,10 @@ export class NavbarComponent implements AfterViewInit{
       this.isDarkMode = localStorage.getItem('theme') === 'dark';
       this.applyTheme();
     }
+  this.userRole = this._AuthService.getUserRole();
+  this._AuthService.userData$.subscribe(user => {
+      this.userRole = user?.role || null;
+    });
   }
   ngAfterViewInit() {
     initFlowbite();

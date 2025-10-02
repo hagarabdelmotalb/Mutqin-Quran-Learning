@@ -1,6 +1,7 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { SessionService, StudentSessionDto } from '../../core/services/session/session.service';
 import { AuthService } from '../../core/services/auth/auth.service';
 import { ProgressService, ProgressTotals } from '../../core/services/progress/progress.service';
@@ -17,7 +18,8 @@ export class DashboardComponent implements OnInit {
   private readonly sessionService = inject(SessionService);
   private readonly authService = inject(AuthService);
   private readonly progressService = inject(ProgressService);
-  private readonly ngxSpinnerService= inject(NgxSpinnerService)
+  private readonly ngxSpinnerService= inject(NgxSpinnerService);
+  private readonly router = inject(Router);
 
   sessions: StudentSessionDto[] = [];
   filteredSessions: StudentSessionDto[] = [];
@@ -29,8 +31,16 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.ngxSpinnerService.show('loading-1');
     const username = this.authService.getCurrentUsername();
+    const userRole = this.authService.getUserRole();
+    
     if (!username) {
       this.errorMessage = 'User not logged in';
+      return;
+    }
+
+    // Redirect tutors to tutor dashboard
+    if (userRole === 'TUTOR') {
+      this.router.navigate(['/tutor-dashboard']);
       return;
     }
     this.isLoading = true;

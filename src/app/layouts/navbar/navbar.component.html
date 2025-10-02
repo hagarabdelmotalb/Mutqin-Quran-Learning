@@ -12,8 +12,50 @@
     </button>
 
     <div class="hidden w-full flex-grow md:flex md:w-auto" id="navbar-default">
-      @if(isLogin()){
-      <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg 
+
+      @if (isLogin()) {
+      <ng-container>
+        @if (userRole === 'TUTOR') {
+          <ul class="font-medium flex flex-col md:flex-row ...">
+            <li>
+              <a routerLink="/tutor-dashboard"
+                routerLinkActive="text-amber-300 border-b-2 border-amber-300"
+                class="block py-2 px-3 text-amber-100 md:p-0 dark:text-amber-300">
+                لوحة المعلم
+              </a>
+            </li>
+            <li>
+              <a (click)="_AuthService.logOut()" class="block py-2 px-3 text-amber-100 md:p-0 dark:text-amber-300">
+                تسجيل الخروج
+              </a>
+            </li>
+          </ul>
+        } @else {
+          <!-- هنا تحطي لينكات الطالب -->
+          <ul class="font-medium flex flex-col md:flex-row ...">
+            <li>
+              <a routerLink="/home" routerLinkActive="text-amber-300 border-b-2 border-amber-300"
+                class="block py-2 px-3 text-amber-100 md:p-0 dark:text-amber-300">
+                الرئيسية
+              </a>
+            </li>
+            <li>
+              <a routerLink="/dashboard" routerLinkActive="text-amber-300 border-b-2 border-amber-300"
+                class="block py-2 px-3 text-amber-100 md:p-0 dark:text-amber-300">
+                لوحة التحكم
+              </a>
+            </li>
+            <li>
+              <a (click)="_AuthService.logOut()" class="block py-2 px-3 text-amber-100 md:p-0 dark:text-amber-300">
+                تسجيل الخروج
+              </a>
+            </li>
+          </ul>
+        }
+      </ng-container>
+} 
+
+      <!-- <ul class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg 
         md:bg-amber-900 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 
           md:border-0 bg-amber-900 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700 
           justify-center w-full">
@@ -94,8 +136,8 @@
           </div>
          </div>
         </li>
-      </ul>
-      }
+      </ul> -->
+      
 
       @if(!isLogin()){
         <ul class="ms-auto font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg  md:bg-amber-900 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md: bg-amber-900 md:dark:bg-gray-900 dark:border-gray-700">

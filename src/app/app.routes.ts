@@ -4,10 +4,10 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
 import { BlankLayoutComponent } from './layouts/blank-layout/blank-layout.component';
 import { authGuard } from './core/guards/auth.guard';
 import { logedGuard } from './core/guards/loged/loged.guard';
+import { roleRedirectGuard } from './core/guards/role-redirect/role-redirect.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
-
   {
     path: '',
     canActivate: [logedGuard],
@@ -50,6 +50,12 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/dashboard/dashboard.component').then(m => m.DashboardComponent),
         title: 'Dashboard',
+      },
+      {
+        path: 'tutor-dashboard',
+        loadComponent: () =>
+          import('./pages/tutor-dashboard/tutor-dashboard.component').then(m => m.TutorDashboardComponent),
+        title: 'Tutor Dashboard',
       },
       {
         path: 'tutors',

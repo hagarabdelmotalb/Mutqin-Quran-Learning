@@ -9,7 +9,8 @@ export interface UserData {
   name: string;
   email: string;
   phone?: string;
-  age:number;
+  age: number;
+  role?: string;
 }
 
 @Injectable({
@@ -66,6 +67,10 @@ export class AuthService {
 
   getCurrentUsername(): string | null {
     return this.userData?.username || null;
+  }
+
+  getUserRole(): string | null {
+    return this.userData?.role || null;
   }
 
   getToken(): string | null {

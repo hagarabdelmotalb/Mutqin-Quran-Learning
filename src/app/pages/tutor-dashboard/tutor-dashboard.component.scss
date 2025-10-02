@@ -1,0 +1,43 @@
+// Tutor Dashboard Styles
+.tutor-dashboard {
+  .student-card {
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+    }
+  }
+
+  .stats-card {
+    background: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    
+    .stats-icon {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      width: 3rem;
+      height: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .loading-spinner {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+
+  .fade-in {
+    animation: fadeIn 0.5s ease-in;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
