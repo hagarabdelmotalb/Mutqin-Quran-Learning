@@ -75,6 +75,7 @@ export const routes: Routes = [
       path: 'student-progress/:username',
         loadComponent: () =>
           import('./pages/student-progress/student-progress.component').then(m => m.StudentProgressComponent),
+        data: { renderMode: 'server' },
         title: 'progress for student',
       },
       {
