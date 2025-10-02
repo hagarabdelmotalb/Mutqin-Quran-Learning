@@ -161,24 +161,34 @@
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
       <!-- password -->
-      <div class="mb-1">
-        <label for="password" class="block mb-2 text-sm font-medium dark:text-white">كلمة المرور <span class="text-amber-600">*</span></label>
-        <input formControlName="password" type="password" id="password"
-          class="bg-white border border-gray-300 text-sm rounded-lg block w-full p-3 
-          focus:ring-2 focus:ring-amber-500 focus:border-amber-500
-          dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100" />
+       <div class="mb-1">
+  <label for="password" class="block mb-2 text-sm font-medium dark:text-white">
+    كلمة المرور <span class="text-amber-600">*</span>
+  </label>
 
-        @if (registerFrom.get('password')?.invalid && registerFrom.get('password')?.touched) {
-          <div class="text-red-500 text-sm mt-1">
-            @if (registerFrom.get('password')?.errors?.['required']) {
-              <span>كلمة المرور مطلوبة</span>
-            }
-            @if (registerFrom.get('password')?.errors?.['minlength']) {
-              <span>كلمة المرور يجب أن تكون 6 أحرف على الأقل</span>
-            }
-          </div>
-        }
-      </div>
+  <input
+    formControlName="password"
+    type="password"
+    id="password"
+    class="bg-white border border-gray-300 text-sm rounded-lg block w-full p-3 
+    focus:ring-2 focus:ring-amber-500 focus:border-amber-500
+    dark:bg-gray-800 dark:border-gray-600 dark:text-gray-100" />
+
+  @if (registerFrom.get('password')?.invalid && registerFrom.get('password')?.touched) {
+    <div class="text-red-500 text-sm mt-1">
+      @if (registerFrom.get('password')?.errors?.['required']) {
+        <span>كلمة المرور مطلوبة</span>
+      }
+      @if (registerFrom.get('password')?.errors?.['pattern']) {
+        <span>
+          يجب أن تحتوي كلمة المرور على 8 أحرف على الأقل، 
+          تشمل حرفًا كبيرًا، حرفًا صغيرًا، رقمًا، ورمزًا خاصًا (مثل !@#$%)
+        </span>
+      }
+    </div>
+  }
+</div>
+
 
       <!-- confirm password -->
       <div class="mb-1">

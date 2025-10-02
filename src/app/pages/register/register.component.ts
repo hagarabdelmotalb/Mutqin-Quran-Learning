@@ -24,7 +24,7 @@ export class RegisterComponent {
     email: new FormControl(null , [Validators.required ,Validators.email]),
     phone: new FormControl(null,[Validators.pattern(/^\+?[0-9]{8,15}$/)]),
     age:new FormControl(null,[Validators.required]),
-    password: new FormControl(null, [Validators.required,Validators.minLength(6)]),
+    password: new FormControl(null, [Validators.required,Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/)]),
     password_confirmation: new FormControl(null , [Validators.required]),
     role: new FormControl(null, [Validators.required]),
   },  {validators: this.confirmPassword}
