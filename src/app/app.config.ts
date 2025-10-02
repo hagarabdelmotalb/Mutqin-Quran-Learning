@@ -1,5 +1,6 @@
 import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
+import { ToastrModule } from 'ngx-toastr';
 
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
@@ -23,6 +24,27 @@ export const appConfig: ApplicationConfig = {
     ),
     provideClientHydration(withEventReplay()),
     provideAnimations(),
-    importProvidersFrom(NgxSpinnerModule)
+    importProvidersFrom(NgxSpinnerModule),
+
+    //----------------------------
+    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideRouter(routes),
+    provideHttpClient(
+      withInterceptors([
+        headerInterceptor,
+        loadingInterceptor,
+        errorInterceptor
+      ])
+    ),
+    provideClientHydration(withEventReplay()),
+    provideAnimations(),
+    importProvidersFrom(
+      NgxSpinnerModule,
+      ToastrModule.forRoot({
+        timeOut: 3000,
+        positionClass: 'toast-bottom-right',
+        preventDuplicates: true,
+      })
+    )
   ]
 };
