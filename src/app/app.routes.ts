@@ -70,6 +70,7 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/progress/progress.component').then(m => m.ProgressComponent),
         title: 'add new progress',
+        data: { renderMode: 'server' } 
       },
       {
       path: 'student-progress/:username',
@@ -89,6 +90,7 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/tutorsdetials/tutorsdetials.component').then(m => m.TutorsdetialsComponent),
         title: 'Tutors details',
+        data: { renderMode: 'server' } 
       },
       {
         path: 'profile',
