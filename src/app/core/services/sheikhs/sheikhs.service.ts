@@ -43,4 +43,9 @@ export class SheikhsService {
      const body = { link };
      return this.httpClient.post(url, body, { headers: this.getHeaders() });
    }
+
+  addStudentProgress(studentUsername: string, progressData: any): Observable<any> {
+  const url = `${this.baseUrl}/api/tutor/progress/${encodeURIComponent(studentUsername)}`;
+  return this.httpClient.post(url, progressData, { headers: this.getHeaders() });
+}
 }

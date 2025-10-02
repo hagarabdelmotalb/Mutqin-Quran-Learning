@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SheikhsService, StudentInfo } from '../../core/services/sheikhs/sheikhs.service';
 import { AuthService } from '../../core/services/auth/auth.service';
 
@@ -19,7 +19,8 @@ export class TutorDashboardComponent implements OnInit {
 
   constructor(
     private sheikhsService: SheikhsService,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -55,5 +56,9 @@ export class TutorDashboardComponent implements OnInit {
 
   refreshStudents(): void {
     this.loadStudents();
+  }
+
+    goToProgressPage(studentUsername: string): void {
+    this.router.navigate(['/progress', studentUsername]);
   }
 }

@@ -1,0 +1,26 @@
+<section class="max-w-md mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6" dir="rtl">
+  <h2 class="text-xl font-semibold mb-4 text-gray-800 dark:text-amber-300">
+    إضافة تقدم للطالب: {{ studentUsername }}
+  </h2>
+
+  <form #progressForm="ngForm" (ngSubmit)="submitProgress()">
+    <div class="mb-3">
+      <label class="block mb-1 text-gray-700 dark:text-gray-300">النقاط</label>
+      <input type="number" name="points" [(ngModel)]="progressData.points" required class="w-full p-2 border rounded" />
+    </div>
+
+    <div class="mb-3">
+      <label class="block mb-1 text-gray-700 dark:text-gray-300">عدد الجلسات</label>
+      <input type="number" name="sessions" [(ngModel)]="progressData.numberOfSessionsAttended" required class="w-full p-2 border rounded" />
+    </div>
+
+    <div class="mb-4">
+      <label class="block mb-1 text-gray-700 dark:text-gray-300">عدد الصفحات</label>
+      <input type="number" name="pages" [(ngModel)]="progressData.pagesLearned" required class="w-full p-2 border rounded" />
+    </div>
+
+    <button type="submit" class="w-full py-2 bg-green-600 hover:bg-green-700 text-white rounded">
+      حفظ التقدم
+    </button>
+  </form>
+</section>

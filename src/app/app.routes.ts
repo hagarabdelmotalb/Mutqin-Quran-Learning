@@ -1,3 +1,4 @@
+import { ProgressComponent } from './pages/progress/progress.component';
 import { TutorSessionComponent } from './pages/tutor-session/tutor-session.component';
 import { TutorsdetialsComponent } from './pages/tutorsdetials/tutorsdetials.component';
 import { Routes } from '@angular/router';
@@ -62,6 +63,12 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/tutor-session/tutor-session.component').then(m => m.TutorSessionComponent),
         title: 'Tutor Session Setup',
+      },
+            {
+        path: 'progress/:username',
+        loadComponent: () =>
+          import('./pages/progress/progress.component').then(m => m.ProgressComponent),
+        title: 'add new progress',
       },
       {
         path: 'tutors',
