@@ -5,3 +5,6 @@
 @import 'ngx-toastr/toastr';
 
 @import "flowbite/src/themes/default";
+
+// Import dark mode styles
+@import './styles/dark-mode.scss';

@@ -1,5 +1,5 @@
 <section
-  class="w-11/12 md:w-2/3 mx-auto bg-gray-50 p-6 rounded-xl border shadow-lg dark:bg-gray-900 dark:border-gray-700 my-8"
+  class="w-11/12 md:w-2/3 mx-auto bg-gray-50 p-6 rounded-xl border shadow-lg dark:bg-gray-800 dark:border-gray-700 my-8"
   dir="rtl"
 >
   <h1
@@ -39,7 +39,7 @@
         value="TUTOR"
         class="form-radio text-amber-600 dark:text-amber-400"
       />
-      <span class="ml-2 font-medium">مُعلّم</span>
+      <span class="ml-2 font-medium dark:text-white">مُعلّم</span>
     </label>
 
     <label
@@ -52,7 +52,7 @@
         value="STUDENT"
         class="form-radio text-amber-600 dark:text-amber-400"
       />
-      <span class="ml-2 font-medium">طالب</span>
+      <span class="ml-2 font-medium dark:text-white">طالب</span>
     </label>
 
     <label
@@ -65,7 +65,7 @@
         value="PARENT"
         class="form-radio text-amber-600 dark:text-amber-400"
       />
-      <span class="ml-2 font-medium">ولي أمر</span>
+      <span class="ml-2 font-medium dark:text-white">ولي أمر</span>
     </label>
   </div>
 </div>
@@ -74,7 +74,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
       <!-- name -->
       <div class="mb-1">
-        <label for="name" class="block mb-2 text-sm font-medium">الاسم <span class="text-amber-600">*</span></label>
+        <label for="name" class="block mb-2 text-sm font-medium dark:text-white">الاسم <span class="text-amber-600">*</span></label>
         <input formControlName="name" type="text" id="name"
           class="bg-white border border-gray-300 text-sm rounded-lg block w-full p-3 
           focus:ring-2 focus:ring-amber-500 focus:border-amber-500
@@ -97,7 +97,7 @@
 
       <!-- username -->
       <div class="mb-1">
-        <label for="username" class="block mb-2 text-sm font-medium">اسم المستخدم <span class="text-amber-600">*</span></label>
+        <label for="username" class="block mb-2 text-sm font-medium dark:text-white">اسم المستخدم <span class="text-amber-600">*</span></label>
         <input formControlName="username" type="text" id="username"
           class="bg-white border border-gray-300 text-sm rounded-lg block w-full p-3 
           focus:ring-2 focus:ring-amber-500 focus:border-amber-500
@@ -122,7 +122,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
       <!-- email -->
       <div class="mb-1">
-        <label for="email" class="block mb-2 text-sm font-medium">البريد الإلكتروني <span class="text-amber-600">*</span></label>
+        <label for="email" class="block mb-2 text-sm font-medium dark:text-white">البريد الإلكتروني <span class="text-amber-600">*</span></label>
         <input formControlName="email" type="email" id="email"
           class="bg-white border border-gray-300 text-sm rounded-lg block w-full p-3 
           focus:ring-2 focus:ring-amber-500 focus:border-amber-500
@@ -142,7 +142,7 @@
 
       <!-- phone -->
       <div class="mb-1">
-        <label for="phone" class="block mb-2 text-sm font-medium">رقم الهاتف</label>
+        <label for="phone" class="block mb-2 text-sm font-medium dark:text-white">رقم الهاتف</label>
         <input formControlName="phone" type="tel" id="phone"
           class="bg-white border border-gray-300 text-sm rounded-lg block w-full p-3 
           focus:ring-2 focus:ring-amber-500 focus:border-amber-500
@@ -162,7 +162,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
       <!-- password -->
       <div class="mb-1">
-        <label for="password" class="block mb-2 text-sm font-medium">كلمة المرور <span class="text-amber-600">*</span></label>
+        <label for="password" class="block mb-2 text-sm font-medium dark:text-white">كلمة المرور <span class="text-amber-600">*</span></label>
         <input formControlName="password" type="password" id="password"
           class="bg-white border border-gray-300 text-sm rounded-lg block w-full p-3 
           focus:ring-2 focus:ring-amber-500 focus:border-amber-500
@@ -182,7 +182,7 @@
 
       <!-- confirm password -->
       <div class="mb-1">
-        <label for="password_confirmation" class="block mb-2 text-sm font-medium">تأكيد كلمة المرور <span class="text-amber-600">*</span></label>
+        <label for="password_confirmation" class="block mb-2 text-sm font-medium dark:text-white">تأكيد كلمة المرور <span class="text-amber-600">*</span></label>
         <input formControlName="password_confirmation" type="password" id="password_confirmation"
           class="bg-white border border-gray-300 text-sm rounded-lg block w-full p-3 
           focus:ring-2 focus:ring-amber-500 focus:border-amber-500
@@ -209,7 +209,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
       <!-- age -->
       <div class="mb-1">
-        <label for="age" class="block mb-2 text-sm font-medium"> العمر <span class="text-amber-600">*</span></label>
+        <label for="age" class="block mb-2 text-sm font-medium dark:text-white"> العمر <span class="text-amber-600">*</span></label>
         <input formControlName="age" type="number" id="age"
           class="bg-white border border-gray-300 text-sm rounded-lg block w-full p-3 
           focus:ring-2 focus:ring-amber-500 focus:border-amber-500
@@ -228,7 +228,7 @@
     <div class="flex items-center mb-4">
       <input id="terms" type="checkbox"
         class="w-4 h-4 text-amber-600 bg-gray-100 border-gray-300 rounded focus:ring-amber-500 dark:focus:ring-amber-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-      <label for="terms" class="ms-2 text-sm font-medium">
+      <label for="terms" class="ms-2 text-sm font-medium dark:text-white">
         أوافق على
         <a href="#" class="text-amber-600 hover:underline dark:text-amber-400">الشروط والأحكام</a>
       </label>

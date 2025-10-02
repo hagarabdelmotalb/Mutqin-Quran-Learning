@@ -2,22 +2,32 @@
 .tutor-session {
   .form-card {
     transition: all 0.3s ease;
+    background: var(--bg-primary, #ffffff);
+    border: 1px solid var(--border-color, #e5e7eb);
     
     &:hover {
-      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      box-shadow: 0 20px 25px -5px var(--shadow-color, rgba(0, 0, 0, 0.1));
     }
   }
 
   .input-field {
     transition: all 0.3s ease;
+    background: var(--bg-tertiary, #f3f4f6);
+    border: 1px solid var(--border-color, #e5e7eb);
+    color: var(--text-primary, #111827);
     
     &:focus {
       transform: translateY(-1px);
       box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+      background: var(--bg-primary, #ffffff);
     }
     
     &.error {
       animation: shake 0.5s ease-in-out;
+    }
+
+    &::placeholder {
+      color: var(--text-secondary, #6b7280);
     }
   }
 
@@ -36,15 +46,22 @@
 
   .success-message {
     animation: slideInDown 0.5s ease-out;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: var(--text-primary, #111827);
   }
 
   .error-message {
     animation: slideInDown 0.5s ease-out;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: var(--text-primary, #111827);
   }
 
   .help-section {
     background: linear-gradient(135deg, rgba(245, 158, 11, 0.05), rgba(245, 158, 11, 0.1));
     border-left: 4px solid #f59e0b;
+    border: 1px solid rgba(245, 158, 11, 0.2);
   }
 
   @keyframes shake {
@@ -78,11 +95,61 @@
       transform: translateY(0); 
     }
   }
+}
 
-  // Dark mode specific styles
-  .dark & {
+// Dark mode specific styles
+:host-context(.dark) {
+  .tutor-session {
+    .form-card {
+      background: var(--bg-primary);
+      border-color: var(--border-color);
+      box-shadow: 0 20px 25px -5px var(--shadow-color);
+    }
+
+    .input-field {
+      background: var(--bg-tertiary);
+      border-color: var(--border-color);
+      color: var(--text-primary);
+      
+      &:focus {
+        background: var(--bg-primary);
+        border-color: #fbbf24;
+        box-shadow: 0 4px 12px rgba(251, 191, 36, 0.2);
+      }
+
+      &::placeholder {
+        color: #9ca3af;
+      }
+    }
+
+    .success-message {
+      background: rgba(16, 185, 129, 0.15);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: #a7f3d0;
+    }
+
+    .error-message {
+      background: rgba(239, 68, 68, 0.15);
+      border-color: rgba(239, 68, 68, 0.4);
+      color: #fca5a5;
+    }
+
     .help-section {
       background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.15));
+      border-left-color: #fbbf24;
+      border-color: rgba(245, 158, 11, 0.3);
+      
+      h4 {
+        color: #fcd34d;
+      }
+      
+      ol li {
+        color: #fde68a;
+      }
+    }
+
+    .header-section {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
     }
   }
 }

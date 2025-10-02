@@ -2,9 +2,12 @@
 .tutor-dashboard {
   .student-card {
     transition: all 0.3s ease;
+    background: var(--bg-primary, #ffffff);
+    border: 1px solid var(--border-color, #e5e7eb);
     
     &:hover {
       transform: translateY(-2px);
+      box-shadow: 0 10px 25px var(--shadow-color, rgba(0, 0, 0, 0.1));
     }
   }
 
@@ -39,5 +42,54 @@
   @keyframes fadeIn {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
+  }
+}
+
+// Dark mode specific styles
+:host-context(.dark) {
+  .tutor-dashboard {
+    .student-card {
+      background: var(--bg-primary);
+      border-color: var(--border-color);
+      color: var(--text-primary);
+      
+      &:hover {
+        background: var(--bg-tertiary);
+        box-shadow: 0 10px 25px var(--shadow-color);
+      }
+    }
+
+    .header-section {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+    }
+
+    .action-buttons {
+      .btn {
+        box-shadow: 0 4px 6px var(--shadow-color);
+        
+        &:hover {
+          box-shadow: 0 8px 15px var(--shadow-color);
+        }
+      }
+    }
+
+    .students-grid {
+      .student-item {
+        background: var(--bg-primary);
+        border: 1px solid var(--border-color);
+        
+        .student-avatar {
+          background: var(--bg-tertiary);
+        }
+        
+        .student-info {
+          color: var(--text-secondary);
+        }
+        
+        .student-name {
+          color: var(--text-primary);
+        }
+      }
+    }
   }
 }

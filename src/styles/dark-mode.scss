@@ -1,0 +1,347 @@
+// Dark Mode Color Palette
+:root {
+  // Light mode colors
+  --bg-primary: #ffffff;
+  --bg-secondary: #f9fafb;
+  --bg-tertiary: #f3f4f6;
+  --text-primary: #111827;
+  --text-secondary: #6b7280;
+  --border-color: #e5e7eb;
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  
+  // Accent colors
+  --amber-primary: #f59e0b;
+  --amber-secondary: #fbbf24;
+  --amber-light: #fef3c7;
+}
+
+// Dark mode colors
+.dark {
+  --bg-primary: #1f2937;      // Dark gray
+  --bg-secondary: #111827;    // Darker gray
+  --bg-tertiary: #374151;     // Medium gray
+  --text-primary: #f9fafb;    // Light gray text
+  --text-secondary: #d1d5db;  // Medium gray text
+  --border-color: #4b5563;    // Gray border
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  
+  // Accent colors for dark mode
+  --amber-primary: #fbbf24;
+  --amber-secondary: #f59e0b;
+  --amber-light: #451a03;
+}
+
+// Global dark mode styles
+.dark {
+  // Body and main containers
+  body {
+    background-color: var(--bg-secondary);
+    color: var(--text-primary);
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  // Cards and containers
+  .card, .bg-white {
+    background-color: var(--bg-primary) !important;
+    border-color: var(--border-color) !important;
+    box-shadow: 0 4px 6px -1px var(--shadow-color) !important;
+  }
+
+  // Secondary backgrounds
+  .bg-gray-50 {
+    background-color: var(--bg-secondary) !important;
+  }
+
+  .bg-gray-100 {
+    background-color: var(--bg-tertiary) !important;
+  }
+
+  // Text colors
+  .text-gray-900 {
+    color: var(--text-primary) !important;
+  }
+
+  .text-gray-800 {
+    color: var(--text-primary) !important;
+  }
+
+  .text-gray-700 {
+    color: var(--text-secondary) !important;
+  }
+
+  .text-gray-600 {
+    color: var(--text-secondary) !important;
+  }
+
+  .text-gray-500 {
+    color: #9ca3af !important;
+  }
+
+  // Borders
+  .border-gray-200,
+  .border-gray-300 {
+    border-color: var(--border-color) !important;
+  }
+
+  // Form elements
+  input, textarea, select {
+    background-color: var(--bg-tertiary) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+
+    &:focus {
+      background-color: var(--bg-primary) !important;
+      border-color: var(--amber-primary) !important;
+      box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1) !important;
+    }
+
+    &::placeholder {
+      color: #9ca3af !important;
+    }
+  }
+
+  // Buttons
+  .btn-primary {
+    background-color: var(--amber-primary) !important;
+    border-color: var(--amber-primary) !important;
+    
+    &:hover {
+      background-color: var(--amber-secondary) !important;
+      border-color: var(--amber-secondary) !important;
+    }
+  }
+
+  // Navigation
+  .navbar, nav {
+    background-color: #0f172a !important;
+    border-color: var(--border-color) !important;
+  }
+
+  // Dropdowns
+  .dropdown-menu {
+    background-color: var(--bg-primary) !important;
+    border-color: var(--border-color) !important;
+    box-shadow: 0 10px 15px -3px var(--shadow-color) !important;
+  }
+
+  // Tables
+  table {
+    background-color: var(--bg-primary) !important;
+    
+    th {
+      background-color: var(--bg-tertiary) !important;
+      color: var(--text-primary) !important;
+      border-color: var(--border-color) !important;
+    }
+    
+    td {
+      border-color: var(--border-color) !important;
+      color: var(--text-secondary) !important;
+    }
+    
+    tr:nth-child(even) {
+      background-color: var(--bg-secondary) !important;
+    }
+  }
+
+  // Alerts and notifications
+  .alert {
+    &.alert-success {
+      background-color: #064e3b !important;
+      border-color: #065f46 !important;
+      color: #a7f3d0 !important;
+    }
+    
+    &.alert-error,
+    &.alert-danger {
+      background-color: #7f1d1d !important;
+      border-color: #991b1b !important;
+      color: #fca5a5 !important;
+    }
+    
+    &.alert-warning {
+      background-color: #451a03 !important;
+      border-color: #78350f !important;
+      color: #fcd34d !important;
+    }
+    
+    &.alert-info {
+      background-color: #0c4a6e !important;
+      border-color: #0369a1 !important;
+      color: #7dd3fc !important;
+    }
+  }
+
+  // Modals
+  .modal {
+    .modal-content {
+      background-color: var(--bg-primary) !important;
+      border-color: var(--border-color) !important;
+    }
+    
+    .modal-header {
+      border-color: var(--border-color) !important;
+    }
+    
+    .modal-footer {
+      border-color: var(--border-color) !important;
+    }
+  }
+
+  // Scrollbars
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--bg-tertiary);
+    border-radius: 4px;
+    
+    &:hover {
+      background: #6b7280;
+    }
+  }
+
+  // Loading states
+  .spinner {
+    border-color: var(--border-color) !important;
+    border-top-color: var(--amber-primary) !important;
+  }
+
+  // Shadows
+  .shadow {
+    box-shadow: 0 1px 3px 0 var(--shadow-color) !important;
+  }
+
+  .shadow-md {
+    box-shadow: 0 4px 6px -1px var(--shadow-color) !important;
+  }
+
+  .shadow-lg {
+    box-shadow: 0 10px 15px -3px var(--shadow-color) !important;
+  }
+
+  .shadow-xl {
+    box-shadow: 0 20px 25px -5px var(--shadow-color) !important;
+  }
+
+  // Hover effects
+  .hover\\:bg-gray-100:hover {
+    background-color: var(--bg-tertiary) !important;
+  }
+
+  .hover\\:bg-gray-200:hover {
+    background-color: var(--bg-tertiary) !important;
+  }
+
+  // Focus states
+  .focus\\:ring-gray-200:focus {
+    --tw-ring-color: #4b5563 !important;
+  }
+
+  // Custom component styles
+  .card-hover {
+    transition: all 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 25px -5px var(--shadow-color) !important;
+    }
+  }
+
+  // Gradient backgrounds for dark mode
+  .gradient-bg {
+    background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+  }
+
+  // Glass effect for dark mode
+  .glass-effect {
+    background: rgba(31, 41, 55, 0.8);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(75, 85, 99, 0.3);
+  }
+}
+
+// Smooth transitions for theme switching
+* {
+  transition: background-color 0.3s ease, 
+              border-color 0.3s ease, 
+              color 0.3s ease,
+              box-shadow 0.3s ease;
+}
+
+// Component-specific dark mode styles
+.dark {
+  // Dashboard specific
+  .dashboard-card {
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-tertiary) 100%);
+    border: 1px solid var(--border-color);
+  }
+
+  // Tutor dashboard specific
+  .student-card {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    
+    &:hover {
+      background-color: var(--bg-tertiary);
+      box-shadow: 0 10px 25px var(--shadow-color);
+    }
+  }
+
+  // Form specific
+  .form-container {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+  }
+
+  // Navigation specific
+  .nav-item {
+    &:hover {
+      background-color: rgba(75, 85, 99, 0.2);
+    }
+    
+    &.active {
+      background-color: rgba(251, 191, 36, 0.1);
+      border-color: var(--amber-primary);
+    }
+  }
+
+  // Search components
+  .search-container {
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    
+    input {
+      background-color: var(--bg-tertiary);
+    }
+  }
+
+  // Progress bars
+  .progress-bar {
+    background-color: var(--bg-tertiary);
+    
+    .progress-fill {
+      background-color: var(--amber-primary);
+    }
+  }
+
+  // Badges and tags
+  .badge {
+    &.badge-primary {
+      background-color: var(--amber-primary);
+      color: #000;
+    }
+    
+    &.badge-secondary {
+      background-color: var(--bg-tertiary);
+      color: var(--text-primary);
+    }
+  }
+}
