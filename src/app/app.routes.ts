@@ -1,3 +1,4 @@
+import { StudentProgressComponent } from './pages/student-progress/student-progress.component';
 import { ProgressComponent } from './pages/progress/progress.component';
 import { TutorSessionComponent } from './pages/tutor-session/tutor-session.component';
 import { TutorsdetialsComponent } from './pages/tutorsdetials/tutorsdetials.component';
@@ -64,11 +65,17 @@ export const routes: Routes = [
           import('./pages/tutor-session/tutor-session.component').then(m => m.TutorSessionComponent),
         title: 'Tutor Session Setup',
       },
-            {
+      {
         path: 'progress/:username',
         loadComponent: () =>
           import('./pages/progress/progress.component').then(m => m.ProgressComponent),
         title: 'add new progress',
+      },
+      {
+      path: 'student-progress/:username',
+        loadComponent: () =>
+          import('./pages/student-progress/student-progress.component').then(m => m.StudentProgressComponent),
+        title: 'progress for student',
       },
       {
         path: 'tutors',

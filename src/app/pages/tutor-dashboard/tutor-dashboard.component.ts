@@ -58,7 +58,11 @@ export class TutorDashboardComponent implements OnInit {
     this.loadStudents();
   }
 
-    goToProgressPage(studentUsername: string): void {
+  goToProgressPage(studentUsername: string): void {
     this.router.navigate(['/progress', studentUsername]);
+  }
+
+  goToStudentProgressPage(studentUsername: string): void {
+    this.router.navigate(['/student-progress', studentUsername]);
   }
 }

@@ -100,7 +100,11 @@
 
               <!-- Action Buttons -->
               <div class="mt-6 flex gap-2">
-                <button class="flex-1 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-lg transition-all duration-300 text-sm font-medium shadow-md hover:shadow-lg">
+                <button 
+                 (click)="goToStudentProgressPage(student.username)"
+                class="flex-1 px-4 py-2 bg-amber-600 hover:bg-amber-700 
+                text-white rounded-lg transition-all duration-300 text-sm 
+                font-medium shadow-md hover:shadow-lg">
                   <i class="fa-solid fa-chart-line-up mr-1"></i>
                   عرض التقدم
                 </button>

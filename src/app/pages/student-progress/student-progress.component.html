@@ -1,0 +1,107 @@
+<section class="bg-gray-50 dark:bg-gray-900 min-h-screen py-10 px-4" dir="rtl">
+  <div class="max-w-5xl mx-auto">
+    <!-- Page Header -->
+    <div class="text-center mb-10">
+      <h1 class="text-3xl md:text-4xl font-extrabold text-amber-700 dark:text-amber-300 mb-2">
+        سجل التقدّم للطالب: <span class="text-gray-800 dark:text-white">{{ username }}</span>
+      </h1>
+      <p class="text-gray-600 dark:text-gray-400 text-sm md:text-base">
+        راجع أدناه جميع إنجازات الطالب مع التفاصيل الكاملة لكل جلسة 
+      </p>
+    </div>
+
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="text-center text-gray-600 dark:text-gray-300">
+      <i class="fa-solid fa-spinner fa-spin text-2xl mb-2"></i>
+      <p>جارِ التحميل...</p>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="!isLoading && errorMessage" class="text-center bg-red-100 dark:bg-red-800 text-red-700 dark:text-red-200 p-4 rounded-lg shadow mb-6">
+      <i class="fa-solid fa-triangle-exclamation mr-2"></i>
+      {{ errorMessage }}
+    </div>
+
+    <!-- Totals Section -->
+    <div
+      *ngIf="!isLoading && !errorMessage && totals"
+      class="bg-gradient-to-r from-amber-100 via-amber-50 to-amber-100 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800 rounded-2xl shadow-lg p-6 mb-10 border border-amber-200 dark:border-amber-700"
+    >
+      <h2 class="text-xl md:text-2xl font-semibold text-gray-800 dark:text-white mb-6 flex items-center gap-2 justify-center">
+        <i class="fa-solid fa-chart-pie text-amber-600 dark:text-amber-300"></i>
+        <span>إجمالي التقدّم</span>
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+        <div class="bg-white dark:bg-gray-800 rounded-lg p-4 shadow hover:scale-105 transition-transform">
+          <p class="text-3xl font-bold text-amber-700 dark:text-amber-300 mb-1">{{ totals.totalPoints }}</p>
+          <p class="text-gray-600 dark:text-gray-300 text-sm">النقاط</p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-lg p-4 shadow hover:scale-105 transition-transform">
+          <p class="text-3xl font-bold text-amber-700 dark:text-amber-300 mb-1">{{ totals.totalNewLearnedPages }}</p>
+          <p class="text-gray-600 dark:text-gray-300 text-sm">الصفحات الجديدة</p>
+        </div>
+
+        <div class="bg-white dark:bg-gray-800 rounded-lg p-4 shadow hover:scale-105 transition-transform">
+          <p class="text-3xl font-bold text-amber-700 dark:text-amber-300 mb-1">{{ totals.totalSessionsAttended }}</p>
+          <p class="text-gray-600 dark:text-gray-300 text-sm">عدد الجلسات</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Progress Entries List -->
+    <div *ngIf="!isLoading && !errorMessage && progressEntries.length > 0" class="space-y-5">
+      <div
+        *ngFor="let entry of progressEntries"
+        class="bg-gradient-to-r from-amber-100 via-amber-50 to-amber-100 dark:from-gray-800 dark:via-gray-700 dark:to-gray-800 rounded-xl shadow-md p-5 hover:shadow-xl transition relative border border-transparent hover:border-amber-400"
+      >
+        <!-- Date & Actions -->
+        <div class="flex justify-between items-center mb-4">
+          <div class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+            <i class="fa-regular fa-clock text-amber-600"></i>
+            <span>تمت الإضافة في:</span>
+            <span class="font-medium">{{ entry.createdAt | date:'medium' }}</span>
+          </div>
+
+          <span class="bg-amber-100 dark:bg-amber-700 text-amber-800 dark:text-white text-xs px-3 py-1 rounded-full shadow">
+            #{{ entry.id }}
+          </span>
+        </div>
+
+        <!-- Entry Details -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+          <div class="flex flex-col items-start">
+            <span class="font-medium text-amber-700 dark:text-amber-300 mb-1">النقاط:</span>
+            <span class="text-gray-700 dark:text-gray-200 text-lg">{{ entry.points || 0 }}</span>
+          </div>
+
+          <div class="flex flex-col items-start">
+            <span class="font-medium text-amber-700 dark:text-amber-300 mb-1">الصفحات الجديدة:</span>
+            <span class="text-gray-700 dark:text-gray-200 text-lg">{{ entry.newLearnedPages || 0 }}</span>
+          </div>
+
+          <div class="flex flex-col items-start">
+            <span class="font-medium text-amber-700 dark:text-amber-300 mb-1">عدد الجلسات:</span>
+            <span class="text-gray-700 dark:text-gray-200 text-lg">{{ entry.sessionsAttended || 0 }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div
+      *ngIf="!isLoading && !errorMessage && progressEntries.length === 0"
+      class="text-center mt-16"
+    >
+      <i class="fa-regular fa-face-frown text-5xl text-gray-400 mb-4"></i>
+      <p class="text-gray-600 dark:text-gray-300 text-lg">
+        لا يوجد سجلات تقدم لهذا الطالب بعد.
+      </p>
+      <p class="text-gray-500 dark:text-gray-400 text-sm">
+        يمكنك إضافة أول سجل من خلال صفحة إضافة التقدّم.
+      </p>
+    </div>
+  </div>
+</section>
+
