@@ -74,14 +74,26 @@
                     <i class="fa-regular fa-calendar"></i>
                     {{ s.date | date:'medium' }}
                   </p>
-                  <span class="badge" [ngClass]="{
+                  <!-- <span class="badge" [ngClass]="{
                     'badge-success': s.status === 'Live' || s.status === 'Available',
                     'badge-warning': s.status === 'Upcomming',
                     'badge-danger': s.status === 'Cancelled'
                   }">
                     <i class="fa-solid fa-circle mr-1"></i>
                     {{ s.status }}
-                  </span>
+                  </span> -->
+<span 
+  [ngClass]="{
+    'bg-green-600 text-white px-3 py-1 rounded-full text-sm': getSessionStatus(s.date) === 'Live',
+    'bg-amber-500 text-white px-3 py-1 rounded-full text-sm': getSessionStatus(s.date) === 'Upcoming',
+    'bg-gray-500 text-white px-3 py-1 rounded-full text-sm': getSessionStatus(s.date) === 'Passed'
+  }"
+>
+  {{ getSessionStatus(s.date) === 'Upcoming' ? 'قادمة' : 
+     getSessionStatus(s.date) === 'Passed' ? 'منتهية' : 
+     'مباشرة' }}
+</span>
+
                 </div>
               </div>
 
