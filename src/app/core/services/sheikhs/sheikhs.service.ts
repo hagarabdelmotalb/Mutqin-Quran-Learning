@@ -37,4 +37,9 @@ export class SheikhsService {
     const url = `${this.baseUrl}/api/tutor/progress/sheikhs/${encodeURIComponent(tutorUsername)}/students`;
     return this.httpClient.get<StudentInfo[]>(url, { headers: this.getHeaders() });
   }
+
+  addCalendlyLink(tutorUsername: string){
+     const url = `${this.baseUrl}/api/tutor/progress/event-type-link/${encodeURIComponent(tutorUsername)}`;
+     return this.httpClient.post();
+  }
 }

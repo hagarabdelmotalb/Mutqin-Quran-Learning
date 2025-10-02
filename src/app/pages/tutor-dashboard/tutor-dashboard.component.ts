@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { SheikhsService, StudentInfo } from '../../core/services/sheikhs/sheikhs.service';
 import { AuthService } from '../../core/services/auth/auth.service';
 
 @Component({
   selector: 'app-tutor-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './tutor-dashboard.component.html',
   styleUrls: ['./tutor-dashboard.component.scss']
 })

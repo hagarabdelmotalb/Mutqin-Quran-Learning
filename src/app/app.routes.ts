@@ -57,11 +57,11 @@ export const routes: Routes = [
           import('./pages/tutor-dashboard/tutor-dashboard.component').then(m => m.TutorDashboardComponent),
         title: 'Tutor Dashboard',
       },
-            {
+      {
         path: 'tutor-session',
         loadComponent: () =>
           import('./pages/tutor-session/tutor-session.component').then(m => m.TutorSessionComponent),
-        title: 'Tutor Dashboard',
+        title: 'Tutor Session Setup',
       },
       {
         path: 'tutors',
